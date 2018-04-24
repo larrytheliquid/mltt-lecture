@@ -1,6 +1,6 @@
 \documentclass[mathserif]{beamer}
 \usetheme{Warsaw}
-\usepackage{proof}
+\usepackage{mathpartir}
 
 \title{Martin-L{\"o}f's Type Theory (MLTT)}
 \author{Larry Diehl}
@@ -16,8 +16,10 @@
 
 \newcommand{\hyp}[1]{\ensuremath{~[\isterm{x}{#1}]}}
 
-\newcommand{\Fun}[2]{\ensuremath{\Pi x{:}#1. #2}}
-\newcommand{\fun}[1]{\ensuremath{\lambda x. #1}}
+\newcommand{\Funv}[3]{\ensuremath{\Pi #1{:}#2. #3}}
+\newcommand{\Fun}[2]{\Funv{x}{#1}{#2}}
+\newcommand{\funv}[2]{\ensuremath{\lambda #1. #2}}
+\newcommand{\fun}[1]{\funv{x}{#1}}
 \newcommand{\app}[2]{\ensuremath{#1~#2}}
 \newcommand{\sub}[2]{\ensuremath{#1[#2/x]}}
 
@@ -66,6 +68,7 @@ to be represented by a type.
 
 \begin{frame}
 \frametitle{MLTT Judgements}
+\framesubtitle{(mutually defined)}
 
 Single syntax for types and terms,
 so typehood and termhood are determined judgementally.
@@ -117,10 +120,17 @@ $\Gamma, x{:}A \vdash \istype{B}$
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Computation in Types}
+
+%% lam A. lam a. a : (A : U) -> A -> (lam X. X) A
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Rules for every type}
-\framesubtitle{e.g. the type of functions}
+\framesubtitle{e.g. the type of dependent functions}
 
 \begin{block}{Type formation}
 e.g. \Fun{A}{B}, and congruences.
@@ -146,29 +156,26 @@ e.g. \app{f}{a}, and congruences.
 \frametitle{Dependent Functions ($\Pi$ types)}
 
 $$
-\infer
-  {\isterm{\fun{b}}{\Fun{A}{B}}}
-{
+\inferrule{
   {\isterm{b}{B} \hyp{A}}
 }
+{\isterm{\fun{b}}{\Fun{A}{B}}}
 \qquad
-\infer
-  {\istype{\Fun{A}{B}}}
-{
+\inferrule{
   {\istype{A}}
-  &
+  \\
   {\istype{B} \hyp{A}}
 }
+{\istype{\Fun{A}{B}}}
 $$
 
 $$
-\infer
-  {\isterm{\app{f}{a}}{\sub{B}{a}}}
-{
+\inferrule{
   {\isterm{\fun{b}}{\Fun{A}{B}}}
-  &
+  \\
   {\isterm{a}{A}}
 }
+{\isterm{\app{f}{a}}{\sub{B}{a}}}
 $$
 
 \end{frame}
