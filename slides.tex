@@ -23,6 +23,11 @@
 \newcommand{\app}[2]{\ensuremath{#1~#2}}
 \newcommand{\sub}[2]{\ensuremath{#1[#2/x]}}
 
+\newcommand{\Unit}[0]{\ensuremath{\top}}
+\newcommand{\unit}[0]{\ensuremath{\textrm{tt}}}
+\newcommand{\Bot}[0]{\ensuremath{\bot}}
+\newcommand{\elimBot}[1]{\ensuremath{\texttt{elim}_{\Bot}~#1}}
+
 
 \begin{document}
 \frame{\titlepage}
@@ -239,6 +244,48 @@ $$
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Unit ($\Unit$ type)}
+
+$$
+\inferrule{
+  {}
+}
+{\istype{\Unit}}
+\qquad
+\inferrule{
+  {}
+}
+{\isterm{\unit}{\Unit}}
+$$
+
+$$
+\inferrule{
+  {\isterm{u}{\Unit}}
+}
+{\eqterm{u}{\unit}{\Unit}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bottom ($\Bot$ type)}
+
+$$
+\inferrule{
+  {}
+}
+{\istype{\Bot}}
+\qquad
+\inferrule{
+  {\istype{A}}
+  \\
+  {\isterm{e}{\Bot}}
+}
+{\isterm{\elimBot{e}}{A}}
+$$
+
+\end{frame}
 
 \begin{frame}
 \frametitle{Church-Encoded Datatypes}
