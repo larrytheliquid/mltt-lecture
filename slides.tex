@@ -162,11 +162,6 @@ e.g. \app{f}{a}, and congruences.
 
 $$
 \inferrule{
-  {\isterm{b}{B} \hyp{A}}
-}
-{\isterm{\fun{b}}{\Fun{A}{B}}}
-\qquad
-\inferrule{
   {\istype{A}}
   \\
   {\istype{B} \hyp{A}}
@@ -176,11 +171,30 @@ $$
 
 $$
 \inferrule{
+  {\isterm{b}{B} \hyp{A}}
+}
+{\isterm{\fun{b}}{\Fun{A}{B}}}
+\qquad
+\inferrule{
   {\isterm{\fun{b}}{\Fun{A}{B}}}
   \\
   {\isterm{a}{A}}
 }
 {\isterm{\app{f}{a}}{\sub{B}{a}}}
+$$
+
+$$
+\inferrule{
+  {\isterm{a}{A}}
+  \\
+  {\isterm{b}{B} \hyp{A}}
+}
+{\eqterm{\app{(\fun{b})}{a}}{\sub{b}{a}}{\sub{B}{a}}}
+\qquad
+\inferrule{
+  {\isterm{f}{\Fun{A}{B}}}
+}
+{\eqterm{f}{\fun{\app{f}{x}}}{\Fun{A}{B}}}
 $$
 
 \end{frame}
