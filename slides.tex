@@ -68,10 +68,11 @@ to be represented by a type.
 
 \begin{frame}
 \frametitle{MLTT Judgements}
-\framesubtitle{(mutually defined)}
 
 Single syntax for types and terms,
 so typehood and termhood are determined judgementally.
+
+Static and dynamic semantics are mutually defined judgements.
 
 \begin{block}{Type is well-formed}
 \istype{A}
@@ -198,6 +199,22 @@ $$
 $$
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Dependent Functions ($\Pi$ types)}
+\framesubtitle{Congruence Rules}
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+}
+{\istype{\Fun{A}{B}}}
+$$
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Church-Encoded Datatypes}
