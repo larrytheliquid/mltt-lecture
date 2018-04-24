@@ -2,752 +2,182 @@
 \usetheme{Warsaw}
 \usepackage{proof}
 
-\title{Tableau Theorem Prover\\ for Intuitionistic Propositional Logic}
+\title{Martin-L{\"o}f's Type Theory (MLTT)}
 \author{Larry Diehl}
-\institute{Portland State University}
-\date[Fall 2014]
-{CS 510 - Mathematical Logic and Programming Languages}
+\institute{University of Iowa - Guest Lecture}
+\date[April 26, 2018]
+{CS:5860 Lambda Calculus and Applications}
 
-\def\|{~|~}
-\def\T{\textrm{T}}
-\def\F{\textrm{F}}
-\def\true{\textrm{true}}
-\def\false{\textrm{false}}
-\def\imp{\supset}
-\def\dfn{~\Leftrightarrow~}
-\def\arr{\Rightarrow}
+\newcommand{\istype}[1]{\ensuremath{#1 ~\textbf{\textrm{type}}}}
+\newcommand{\isterm}[2]{\ensuremath{#1 ~\textbf{{:}}~ #2}}
 
-\newcommand{\diff}[1]{\textcolor{red}{#1}}
+\newcommand{\eqtype}[2]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{\textrm{type}}}}
+\newcommand{\eqterm}[3]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{{:}}~ #3}}
 
-\newcommand{\turn}[1]{\Gamma \vdash #1}
-\newcommand{\cturn}[2]{\Gamma , #1 \vdash #2}
+\newcommand{\hyp}[1]{\ensuremath{[\isterm{x}{#1}]}}
 
-\newcommand{\eval}[1]{\sigma \triangleright #1}
-\newcommand{\sat}[1]{\sigma \vDash #1}
-\newcommand{\nsat}[1]{\sigma \nvDash #1}
-\newcommand{\force}[1]{\Gamma \Vdash #1}
-\newcommand{\dforce}[1]{\Delta \Vdash #1}
-\newcommand{\forcep}[1]{\Gamma \Vdash^p #1}
-\newcommand{\nforce}[1]{\Gamma \nVdash #1}
+\newcommand{\Fun}[2]{\ensuremath{\Pi x{:}#1. #2}}
+\newcommand{\fun}[1]{\ensuremath{\lambda x. #1}}
+\newcommand{\app}[2]{\ensuremath{#1~#2}}
+\newcommand{\sub}[2]{\ensuremath{#1[#2/x]}}
 
-\def\mycalc{
-$$
-\infer
-  [\T \land]
-  {S , \T A , \T B}
-{
-  {S , \T(A \land B)}
-}
-\qquad
-\infer
-  [\F \land]
-  {S, \F A \| S, \F B}
-{
-  {S, \F(A \land B)}
-}
-$$
-
-$$
-\infer
-  [\T \lor]
-  {S , \T A \| S , \T B}
-{
-  {S , \T(A \lor B)}
-}
-\qquad
-\infer
-  [\F \lor]
-  {S, \F A , \F B}
-{
-  {S, \F(A \lor B)}
-}
-$$
-
-$$
-\infer
-  [\T \! \imp]
-  {S , \F A \| S , \T B}
-{
-  {S , \T(A \imp B)}
-}
-\qquad
-\infer
-  [\F \! \imp]
-  {S_{\T}, \T A , \F B}
-{
-  {S, \F(A \imp B)}
-}
-$$
-
-$$
-\infer
-  [\T \neg]
-  {S , \F A}
-{
-  {S , \T(\neg A)}
-}
-\qquad
-\infer
-  [\F \neg]
-  {S_{\T}, \T A}
-{
-  {S, \F(\neg A)}
-}
-$$
-}
 
 \begin{document}
-
 \frame{\titlepage}
 
 \begin{frame}
-\frametitle{Motivation}
-\framesubtitle{Tableau for Classical Logic}
+\frametitle{Curry-Howard Isomorphism}
 
-\begin{itemize}
-\item If $\neg A$ is contradictory in all paths, then $A \lor \neg A$
-  lets us conclude $A$ is a {\it tautology}.
-\item For {\it satisfiability}, running tableau on $A$ yield a
-  (classical model) evaluation context $\sigma$.
-\item Tableau seems awfully tied to classical logic, is intuitionistic
-  tableau doomed!?
-\end{itemize}
+\textbf{Propositions as types and proofs as terms}.
+Use $\lambda$-calculus as a proof language.
+Verified programming by encoding specifications
+into types (as logical propositions), and
+writing programs that only type-check if they
+meet the specifications.
 
-
+MLTT allows any proposition (of intuitionistic logic)
+to be represented by a type.
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Classical vs Intuitionistic Logic}
+\frametitle{Curry-Howard Isomorphism}
+\framesubtitle{System F}
 
-\begin{block}{Classical Logic}
-\begin{itemize}
-\item The {\it meaning} of a proposition is its truth value.
-\item {\bf Satisfiability:} Does evaluating it yield true?
-\item $A \lor \neg A$
-\item $\neg\neg A \imp A$
-\item $A \imp \neg\neg A$
-\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Curry-Howard Isomorphism}
+\framesubtitle{MLTT}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Verified Programming}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Large Eliminations}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{MLTT Judgements}
+
+Single syntax for types and terms,
+so typehood and termhood are determined judgementally.
+
+\begin{block}{Type is well-formed}
+\istype{A}
 \end{block}
 
-\begin{block}{Intuitionistic Logic}
-\begin{itemize}
-\item The {\it meaning} of a proposition is its constructive content.
-\item {\bf Satisfiability:} Can you write it as a program?
-\item $A \imp \neg\neg A$
-\end{itemize}
+\begin{block}{Term has type}
+\isterm{a}{A}
+\end{block}
+
+\begin{block}{Type is equal to}
+\eqtype{A}{B}
+\end{block}
+
+\begin{block}{Term is equal to}
+\eqterm{a}{a'}{A}
+\end{block}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hypothetical Judgements}
+\framesubtitle{or, ``higher-order'' judgements}
+
+\begin{block}{Explicit context}
+$\Gamma \vdash \istype{A}$
+\end{block}
+
+\begin{block}{Implicit (meta-level) context}
+\istype{A}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hypothetical Judgements}
+\framesubtitle{or, ``higher-order'' judgements}
+
+\begin{block}{Explicit context}
+$\Gamma, x{:}A \vdash \istype{B}$
+\end{block}
+
+\begin{block}{Implicit (meta-level) context}
+\istype{B} \hyp{A}
 \end{block}
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Proof Theory for Intuitionistic Logic}
+\frametitle{Rules for every type}
+\framesubtitle{e.g. the type of functions}
+
+\begin{block}{Type formation}
+e.g. \Fun{A}{B}, and congruences.
+\end{block}
+
+\begin{block}{Term introduction}
+e.g. \fun{B}, and congruences.
+\end{block}
+
+\begin{block}{Term elimination}
+e.g. \app{f}{a}, and congruences.
+\end{block}
+
+\begin{block}{Equality}
+  e.g. $\app{(\fun{b})}{a} =_\beta \sub{b}{a}$, and
+  $f =_\eta \fun{\app{f}{x}}$.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dependent Functions}
 
 $$
 \infer
-  [\imp_I]
-  {\turn{A \imp B}}
+  {\istype{\Fun{A}{B}}}
 {
-  {\cturn{A}{B}}
+  {}
 }
 \qquad
 \infer
-  [\imp_E]
-  {\turn{B}}
+  {\isterm{\fun{b}}{\Fun{A}{B}}}
 {
-  {\turn{A \imp B}}
-  &
-  {\turn{A}}
-}
-$$
-
-$$
-\infer
-  [\land_I]
-  {\turn{A \land B}}
-{
-  {\turn{A}}
-  &
-  {\turn{B}}
-}
-\qquad
-\infer
-  [\land_{E_1}]
-  {\turn{A}}
-{
-  {\turn{A \land B}}
-}
-\qquad
-\infer
-  [\land_{E_2}]
-  {\turn{B}}
-{
-  {\turn{A \land B}}
-}
-$$
-
-$$
-\infer
-  [\lor_{I_1}]
-  {\turn{A \lor B}}
-{
-  {\turn{A}}
-}
-\qquad
-\infer
-  [\lor_{I_2}]
-  {\turn{A \lor B}}
-{
-  {\turn{B}}
-}
-\qquad
-\infer
-  [\lor_E]
-  {\turn{C}}
-{
-  {\cturn{A}{C}}
-  &
-  {\cturn{B}{C}}
-}
-$$
-
-$$
-\infer
-  [\neg_I]
-  {\turn{\neg A}}
-{
-  {\cturn{A}{\bot}}
-}
-\qquad
-\infer
-  [\neg_E]
-  {\turn{\bot}}
-{
-  {\turn{A}}
-  &
-  {\turn{\neg A}}
-}
-$$
-
-$$
-\infer
-  [\top_I]
-  {\turn{\top}}
-{
-}
-\qquad
-\infer
-  [\bot_E]
-  {\turn{A}}
-{
-  {\turn{\bot}}
+  {}
 }
 $$
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Proof Theory for Classical Logic}
-
-\center{... intuitionistic rules plus ...}
-
-$$
-\infer
-  [\neg\neg_I]
-  {\turn{\neg\neg A}}
-{
-  {\turn{A}}
-}
-\qquad
-\infer
-  [\neg\neg_E]
-  {\turn{A}}
-{
-  {\turn{\neg\neg A}}
-}
-$$
-
-\center{...or...}
-
-$$
-\infer{\turn{A \lor \neg A}}
-{}
-$$
+\frametitle{Church-Encoded Datatypes}
+\framesubtitle{System F}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Model Theory for Classical Logic}
-
-{\bf Boolean Algebra} $\langle \mathbb{B} , \false , \true , \&\& , || , ! \rangle$
-
-Classical truth is a boolean value.
-
-\begin{block}{Satisfiability}
-\begin{align*}
-\sat{A} &\dfn \eval{A} \equiv \true\\
-\nsat{A} &\dfn \eval{A} \equiv \false
-\end{align*}
-\end{block}
-
-\begin{block}{Evaluation}
-\begin{align*}
-\eval{p} &\dfn \sigma ~ p\\
-\eval{A \land B} &\dfn \eval{A} ~\&\&~ \eval{B}\\
-\eval{A \lor B} &\dfn \eval{A} ~||~ \eval{B}\\
-\eval{A \imp B} &\dfn ! (\eval{A}) ~||~ \eval{B}\\
-\eval{\neg A} &\dfn ! (\eval{A})
-\end{align*}
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Model Theory for Intuitionistic Logic}
-
-{\bf Kripke Model} $\langle \mathbb{C} , \leq , \varnothing , \Vdash \rangle$
-
-Intuitionistic truth is constructive evidence, or a program.
-
-
-\begin{block}{Forcing (intuitionistic satisfiability)}
-\begin{align*}
-\force{p} &\dfn \forcep{p}\\
-\force{A \land B} &\dfn \force{A} \times \force{B}\\
-\force{A \lor B} &\dfn \force{A} ~\uplus~ \force{B}\\
-\force{A \imp B} &\dfn \Gamma \leq \Delta \arr \dforce{A} \arr \dforce{B}\\
-\force{\neg A} &\dfn \Gamma \leq \Delta \arr \dforce{A} \arr \bot\\
-\nforce{A} &\dfn \force{\neg A}
-\end{align*}
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Classical vs Intuitionistic Model Theory}
-
-Many more intuitionistic models than classical models
-because intuitionistic implication and negation allow 
-arbitrary intrinsically distinct functions.
-
-{\it Much bigger search space for an intuitionistic theorem prover!}
-
-\begin{block}{Evaluation}
-\begin{align*}
-\eval{A \imp B} &\dfn ! (\eval{A}) ~||~ \eval{B}\\
-\eval{\neg A} &\dfn ! (\eval{A})
-\end{align*}
-\end{block}
-
-\begin{block}{Forcing}
-\begin{align*}
-\force{A \imp B} &\dfn \Gamma \leq \Delta \arr \dforce{A} \arr \dforce{B}\\
-\force{\neg A} &\dfn \Gamma \leq \Delta \arr \dforce{A} \arr \bot
-\end{align*}
-\end{block}
-
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Classical Tableau Calculus}
-
-$$
-\infer
-  [\T \land]
-  {S , \T A , \T B}
-{
-  {S , \T(A \land B)}
-}
-\qquad
-\infer
-  [\F \land]
-  {S, \F A \| S, \F B}
-{
-  {S, \F(A \land B)}
-}
-$$
-
-$$
-\infer
-  [\T \lor]
-  {S , \T A \| S , \T B}
-{
-  {S , \T(A \lor B)}
-}
-\qquad
-\infer
-  [\F \lor]
-  {S, \F A , \F B}
-{
-  {S, \F(A \lor B)}
-}
-$$
-
-$$
-\infer
-  [\T \! \imp]
-  {S , \F A \| S , \T B}
-{
-  {S , \T(A \imp B)}
-}
-\qquad
-\infer
-  [\F \! \imp]
-  {S, \T A , \F B}
-{
-  {S, \F(A \imp B)}
-}
-$$
-
-$$
-\infer
-  [\T \neg]
-  {S , \F A}
-{
-  {S , \T(\neg A)}
-}
-\qquad
-\infer
-  [\F \neg]
-  {S, \T A}
-{
-  {S, \F(\neg A)}
-}
-$$
-
-\end{frame}
-
-
-\begin{frame}[label=calculus]
-\frametitle{Intuitionistic Tableau Calculus}
-
-$$
-\diff{S_{\T} \dfn \{ \T A \| \T A \in S \}}
-$$
-
-$$
-\infer
-  [\T \land]
-  {S , \T A , \T B}
-{
-  {S , \T(A \land B)}
-}
-\qquad
-\infer
-  [\F \land]
-  {S, \F A \| S, \F B}
-{
-  {S, \F(A \land B)}
-}
-$$
-
-$$
-\infer
-  [\T \lor]
-  {S , \T A \| S , \T B}
-{
-  {S , \T(A \lor B)}
-}
-\qquad
-\infer
-  [\F \lor]
-  {S, \F A , \F B}
-{
-  {S, \F(A \lor B)}
-}
-$$
-
-$$
-\infer
-  [\T \! \imp]
-  {S , \F A \| S , \T B}
-{
-  {S , \T(A \imp B)}
-}
-\qquad
-\infer
-  [\F \! \imp]
-  {\diff{S_{\T}}, \T A , \F B}
-{
-  {S, \F(A \imp B)}
-}
-$$
-
-$$
-\infer
-  [\T \neg]
-  {S , \F A}
-{
-  {S , \T(\neg A)}
-}
-\qquad
-\infer
-  [\F \neg]
-  {\diff{S_{\T}}, \T A}
-{
-  {S, \F(\neg A)}
-}
-$$
+\frametitle{W-Encoded Datatypes}
+\framesubtitle{MLTT}
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Classical Tableau Interpretation}
-
-Gradually build an evaluation context $\sigma$ for $A$ (such that $\sat{A}$),
-until tableau is finished or the model is contradictory.
-
-\begin{block}{Judgments}
-\begin{itemize}
-\item $\T A$ means $A$ is true in the model.
-\item $\F A$ means $A$ is false in the model.
-\end{itemize}
-\end{block}
-
-\begin{block}{Inference Rules}
-If the premise is true, then the conclusion is true.
-\end{block}
+\frametitle{Metatheoretic Properties}
 
 \end{frame}
-
-\begin{frame}
-\frametitle{Intuitionistic Tableau Interpretation}
-
-Gradually build a ``proof'' of $A$ (an ``element'' of $\force{A}$),
-until tableau is finished or the model is contradictory.
-
-\begin{block}{Judgments}
-\begin{itemize}
-\item $\T A$ means we have a proof of $A$.
-\item $\F A$ means $A$ we do not (yet) have a proof of $A$.
-\end{itemize}
-\end{block}
-
-\begin{block}{Inference Rules}
-\begin{itemize}
-\item If the premise is true, then the conclusion \diff{may} be true.
-\item The conclusion is logically consistent with the premise.
-\end{itemize}
-\end{block}
-
-\end{frame}
-
-\againframe{calculus}
-
-\begin{frame}
-\frametitle{Closed Example $A \imp A$}
-
-\begin{columns}[T]
-\begin{column}[T]{4cm}
-\begin{align*}
-[\{ \F(A \diff{\imp} A) \}],\\
-[\{ \T A, \F A \}].
-\end{align*}
-\end{column}
-
-\begin{column}[T]{7cm}
-\mycalc
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Closed Example $A \imp (A \land A)$}
-
-\begin{columns}[T]
-\begin{column}[T]{4cm}
-\begin{align*}
-[\{ \F(A \diff{\imp} (A \land A)) \}],\\
-[\{ \T A, \F(A \diff{\land} A)) \}],\\
-[\{ \T A, \F A \}, \{ \T A, \F A \}].
-\end{align*}
-\end{column}
-
-\begin{column}[T]{7cm}
-\mycalc
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Open Example $A \lor \neg A$}
-
-\begin{columns}[T]
-\begin{column}[T]{4cm}
-\begin{align*}
-[\{ \F(A \diff{\lor} \neg A) \}],\\
-[\{ \F A, \F(\diff{\neg} A) \}],\\
-[\{ \T A \}].
-\end{align*}
-\end{column}
-
-\begin{column}[T]{7cm}
-\mycalc
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Closed Example $A \imp (A \imp B) \imp B$}
-
-\begin{columns}[T]
-\begin{column}[T]{4cm}
-\begin{align*}
-[\{ \F(A \diff{\imp} (A \imp B) \imp B) \}],\\
-[\{ \T A , \F((A \imp B) \diff{\imp} B) \}],\\
-[\{ \T A, \T(A \diff{\imp} B) , \F B \}],\\
-[\{ \T A, \F A, \F B \}, \{ \T A, \T B , \F B \}].
-\end{align*}
-\end{column}
-
-\begin{column}[T]{7cm}
-\mycalc
-\end{column}
-\end{columns}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Classical vs Intuitionistic Tableau Search}
-
-When looking for a closed tableau:
-
-\begin{block}{Classical}
-You can prioritize {\bf any} rule to apply to $S$ to shrink the search space.
-\end{block}
-
-\begin{block}{Intuitionistic}
-You must try applying {\bf all} rules to $S$,
-but can still prioritize some and backtrack if they fail.
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{``Open'' Example $\neg A \imp \neg A$}
-
-\begin{columns}[T]
-\begin{column}[T]{4cm}
-\begin{align*}
-[\{ \F(\neg A \diff{\imp} \neg A) \}],\\
-[\{ \T(\diff{\neg} A), \F(\neg A) \}],\\
-[\{ \F A, \F(\diff{\neg} A) \}],\\
-[\{ \T A \}].
-\end{align*}
-\end{column}
-
-\begin{column}[T]{7cm}
-\mycalc
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Closed Example $\neg A \imp \neg A$}
-
-\begin{columns}[T]
-\begin{column}[T]{4cm}
-\begin{align*}
-[\{ \F(\neg A \diff{\imp} \neg A) \}],\\
-[\{ \T(\neg A), \F(\diff{\neg} A) \}],\\
-[\{ \T(\diff{\neg} A), \T A \}],\\
-[\{ \F A, \T A \}].
-\end{align*}
-\end{column}
-
-\begin{column}[T]{7cm}
-\mycalc
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Using Classical vs Intuitionistic Tableau}
-
-\begin{block}{Classical}
-To show that $A$ is true:
-\begin{enumerate}
-\item Assume that $A$ is false.
-\item Build a tableau for $\neg A$.
-\item If some sub-proposition is true and false, $A$ must be true.
-\end{enumerate}
-\end{block}
-
-\begin{block}{Intuitionistic}
-To show that $A$ is provable:
-\begin{enumerate}
-\item Assume that $A$ has not been proven.
-\item Build a tableau for $\neg A$.
-\item If some sub-proposition is proven and not yet proven,
-it must be impossible that $A$ has not been proven.
-\end{enumerate}
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Classical vs Intuitionistic Tableau Soundness}
-
-\begin{block}{Classical}
-{\bf Have} a model $\sigma$ from the tableau {\it conclusion}, so
-{\bf check} that $\sat{A}$.
-\end{block}
-
-\begin{block}{Intuitionistic}
-{\bf Have} a tableau {\it derivation} of $A$, so
-{\bf construct} an element of $\force{A}$.
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Intuitionistic Tableau Soundness}
-
-\begin{block}{Theorem}
-{\bf Have} a tableau {\it derivation} of $A$, so
-{\bf construct} an element of $\force{A}$.
-\end{block}
-
-\begin{block}{Fitting's Proof}
-By showing the contrapositive.\\
-Sadly, $(\neg B \imp \neg A) \nRightarrow (A \imp B)$ intuitionistically.
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{References}
-\framesubtitle{Classical is to Intuitionistic as Smullyan is to Fitting}
-
-\begin{block}{Classical Tableau Book}
-{\it First Order Logic} - Smullyan'68
-\end{block}
-
-\begin{block}{Intuitionistic Tableau Book}
-{\it Intuitionistic Logic: Model Theory and Forcing} - Fitting'69
-\end{block}
-
-\begin{block}{Intuitionistic Tableau Optimization Papers}
-\begin{itemize}
-\item {\it An O(n log n)-Space Decision Procedure for Intuitionistic Propositional Logic} - Hudelmaier'93
-\item {\it A Tableau Decision Procedure for Propositional Intuitionistic Logic} - Avellone et. al.'06
-\end{itemize}
-\end{block}
-
-\end{frame}
-
-
-
 
 
 \end{document}
