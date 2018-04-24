@@ -195,14 +195,15 @@ e.g. \app{f}{a}, and congruences.
 
 \item
 The universe type \Type ~is a safe version of a ``type of types'',
-where each type is represented as a \textit{code} of type \Type.
+where each type is represented as a \textit{code}
+(which is a term) of type \Type.
 
 \item
-Each type code can be \textit{lifted} to a proper type,
+Each code for a type can be \textit{lifted} to a proper type,
 meaning it satisfies the type formation judgement (\istype{A}).
 
 \item
-\Type ~is a \textit{predicate} reflection of well-formed types
+\Type ~is a \textit{predicative} reflection of well-formed types
 as terms (typeable by \Type).
 
 \item
@@ -401,6 +402,8 @@ $$
 \begin{frame}
 \frametitle{Intuitionistic Logic}
 
+%% separate slides for pairs, disjoint unions, etc
+%% maybe show constructors for disjunction
 %% define implication, conjunction, and disjunction as type synonyms
 %% also Curry-Howard table of other logical types
 %% negation
