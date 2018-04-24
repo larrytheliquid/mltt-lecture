@@ -11,7 +11,7 @@
 \newcommand{\istype}[1]{\ensuremath{#1 ~\textbf{\textrm{type}}}}
 \newcommand{\isterm}[2]{\ensuremath{#1 ~\textbf{{:}}~ #2}}
 
-\newcommand{\eqtype}[2]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{\textrm{type}}}}
+\newcommand{\eqtype}[2]{\ensuremath{#1 ~\textbf{=}~ #2}}
 \newcommand{\eqterm}[3]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{{:}}~ #3}}
 
 \newcommand{\hyp}[1]{\ensuremath{~[\isterm{x}{#1}]}}
@@ -67,10 +67,20 @@ to be represented by a type.
 \end{frame}
 
 \begin{frame}
-\frametitle{MLTT Judgements}
+\frametitle{MLTT Syntax}
 
-Single syntax for types and terms,
-so typehood and termhood are determined judgementally.
+Unified syntax for types and terms,
+so typehood and termhood are determined \textit{judgementally}.
+
+\begin{block}{Grammar}
+$A,B,a,b,f ::= ...~|~\Fun{A}{B}~|~\fun{b}~|~\app{f}{a}~|~...$
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{MLTT Judgements}
 
 Static and dynamic semantics are mutually defined judgements.
 
@@ -82,11 +92,11 @@ Static and dynamic semantics are mutually defined judgements.
 \isterm{a}{A}
 \end{block}
 
-\begin{block}{Type is equal to}
+\begin{block}{Type is equal to type}
 \eqtype{A}{B}
 \end{block}
 
-\begin{block}{Term is equal to}
+\begin{block}{Term is equal to term at type}
 \eqterm{a}{a'}{A}
 \end{block}
 
@@ -143,7 +153,7 @@ e.g. \Fun{A}{B}, and congruences.
 \end{block}
 
 \begin{block}{Term introduction}
-e.g. \fun{B}, and congruences.
+e.g. \fun{b}, and congruences.
 \end{block}
 
 \begin{block}{Term elimination}
@@ -206,11 +216,25 @@ $$
 
 $$
 \inferrule{
-  {\istype{A}}
+  {\eqtype{A}{A'}}
   \\
-  {\istype{B} \hyp{A}}
+  {\eqtype{B}{B'} \hyp{A}}
 }
-{\istype{\Fun{A}{B}}}
+{\eqtype{\Fun{A}{B}}{\Fun{A'}{B'}}}
+$$
+
+$$
+\inferrule{
+  {\eqterm{b}{b'}{B} \hyp{A}}
+}
+{\eqterm{\fun{b}}{\fun{b'}}{\Fun{A}{B}}}
+\qquad
+\inferrule{
+  {\eqterm{f}{f'}{\Fun{A}{B}}}
+  \\
+  {\eqterm{a}{a'}{A}}
+}
+{\eqterm{\app{f}{a}}{\app{f'}{a'}}{\sub{B}{a}}}
 $$
 
 \end{frame}
