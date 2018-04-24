@@ -14,7 +14,7 @@
 \newcommand{\eqtype}[2]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{\textrm{type}}}}
 \newcommand{\eqterm}[3]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{{:}}~ #3}}
 
-\newcommand{\hyp}[1]{\ensuremath{[\isterm{x}{#1}]}}
+\newcommand{\hyp}[1]{\ensuremath{~[\isterm{x}{#1}]}}
 
 \newcommand{\Fun}[2]{\ensuremath{\Pi x{:}#1. #2}}
 \newcommand{\fun}[1]{\ensuremath{\lambda x. #1}}
@@ -33,7 +33,7 @@ Use $\lambda$-calculus as a proof language.
 Verified programming by encoding specifications
 into types (as logical propositions), and
 writing programs that only type-check if they
-meet the specifications.
+satisfy the specifications.
 
 MLTT allows any proposition (of intuitionistic logic)
 to be represented by a type.
@@ -143,19 +143,31 @@ e.g. \app{f}{a}, and congruences.
 
 
 \begin{frame}
-\frametitle{Dependent Functions}
+\frametitle{Dependent Functions ($\Pi$ types)}
 
 $$
 \infer
-  {\istype{\Fun{A}{B}}}
+  {\isterm{\fun{b}}{\Fun{A}{B}}}
 {
-  {}
+  {\isterm{b}{B} \hyp{A}}
 }
 \qquad
 \infer
-  {\isterm{\fun{b}}{\Fun{A}{B}}}
+  {\istype{\Fun{A}{B}}}
 {
-  {}
+  {\istype{A}}
+  &
+  {\istype{B} \hyp{A}}
+}
+$$
+
+$$
+\infer
+  {\isterm{\app{f}{a}}{\sub{B}{a}}}
+{
+  {\isterm{\fun{b}}{\Fun{A}{B}}}
+  &
+  {\isterm{a}{A}}
 }
 $$
 
