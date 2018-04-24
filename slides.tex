@@ -1,12 +1,15 @@
 \documentclass[mathserif]{beamer}
 \usetheme{Warsaw}
 \usepackage{mathpartir}
+\usepackage{cancel}
 
 \title{Martin-L{\"o}f's Type Theory (MLTT)}
 \author{Larry Diehl}
 \institute{University of Iowa - Guest Lecture}
 \date[April 26, 2018]
 {CS:5860 Lambda Calculus and Applications}
+
+\newcommand{\bad}[1]{\textcolor{red}{\cancel{#1}}}
 
 \newcommand{\istype}[1]{\ensuremath{#1 ~\textbf{\textrm{type}}}}
 \newcommand{\isterm}[2]{\ensuremath{#1 ~\textbf{{:}}~ #2}}
@@ -16,6 +19,8 @@
 
 \newcommand{\hyp}[1]{\ensuremath{~[\isterm{x}{#1}]}}
 
+\newcommand{\Arr}[2]{\ensuremath{#1 \rightarrow #2}}
+
 \newcommand{\Funv}[3]{\ensuremath{\Pi #1{:}#2. #3}}
 \newcommand{\Fun}[2]{\Funv{x}{#1}{#2}}
 \newcommand{\funv}[2]{\ensuremath{\lambda #1. #2}}
@@ -23,11 +28,16 @@
 \newcommand{\app}[2]{\ensuremath{#1~#2}}
 \newcommand{\sub}[2]{\ensuremath{#1[#2/x]}}
 
+\newcommand{\Type}[0]{\ensuremath{\mathcal{U}}}
+
 \newcommand{\Unit}[0]{\ensuremath{\top}}
 \newcommand{\unit}[0]{\ensuremath{\textrm{tt}}}
 \newcommand{\Bot}[0]{\ensuremath{\bot}}
 \newcommand{\elimBot}[1]{\ensuremath{\texttt{elim}_{\Bot}~#1}}
 
+\newcommand{\Bool}[0]{\ensuremath{\mathbb{B}}}
+\newcommand{\true}[0]{\ensuremath{\textrm{tt}}}
+\newcommand{\false}[0]{\ensuremath{\textrm{ff}}}
 
 \begin{document}
 \frame{\titlepage}
@@ -44,6 +54,8 @@ satisfy the specifications.
 
 MLTT allows any proposition (of intuitionistic logic)
 to be represented by a type.
+Hence, \textbf{MLTT is a single language
+suitable for both programming and theorem proving}.
 
 \end{frame}
 
@@ -154,7 +166,11 @@ $\Gamma, x{:}A \vdash \istype{B}$
 \framesubtitle{e.g. the type of dependent functions}
 
 \begin{block}{Type formation}
-e.g. \Fun{A}{B}, and congruences.
+e.g. \Fun{A}{B}, congruences, and \textit{universe encoding}.
+\end{block}
+
+\begin{block}{Universe introduction}
+e.g. \Fun{A}{B}, {\`a} la Russell.
 \end{block}
 
 \begin{block}{Term introduction}
@@ -172,6 +188,75 @@ e.g. \app{f}{a}, and congruences.
 
 \end{frame}
 
+\begin{frame}
+\frametitle{A Universe (\Type) of Types}
+
+\begin{itemize}
+
+\item
+The universe type \Type ~is a safe version of a ``type of types'',
+where each type is represented as a \textit{code} of type \Type.
+
+\item
+Each type code can be \textit{lifted} to a proper type,
+meaning it satisfies the type formation judgement (\istype{A}).
+
+\item
+\Type ~is a \textit{predicate} reflection of well-formed types
+as terms (typeable by \Type).
+
+\item
+Quantifying over universe \textit{codes} (\Type) corresponds to
+\textit{predicatively} quantifying over \textit{types}. 
+
+\item
+Hence, each \textit{type formation rule} is accompanied
+by a \textit{universe introduction rule}.\footnote{
+  Except for the \Type-formation rule.
+  }
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Universe ($\Type$ type)}
+\framesubtitle{Formation Rules}
+
+$$
+\inferrule{
+  {}
+}
+{\istype{\Type}}
+\qquad
+\inferrule{
+  {\isterm{A}{\Type}}
+}
+{\istype{A}}
+$$
+
+$$
+\bad{\inferrule{
+  {}
+}
+{\isterm{\Type}{\Type}}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Predicative Universe}
+\framesubtitle{e.g. the identity function type}
+
+$$
+\istype{\Funv{A}{\Type}{\Arr{A}{A}}}
+$$
+
+$$
+\bad{\isterm{\Funv{A}{\Type}{\Arr{A}{A}}}{\Type}}
+$$
+
+\end{frame}
 
 \begin{frame}
 \frametitle{Dependent Functions ($\Pi$ types)}
@@ -183,6 +268,13 @@ $$
   {\istype{B} \hyp{A}}
 }
 {\istype{\Fun{A}{B}}}
+\qquad
+\inferrule{
+  {\isterm{A}{\Type}}
+  \\
+  {\isterm{B}{\Type} \hyp{A}}
+}
+{\isterm{\Fun{A}{B}}{\Type}}
 $$
 
 $$
@@ -217,7 +309,7 @@ $$
 
 \begin{frame}
 \frametitle{Dependent Functions ($\Pi$ types)}
-\framesubtitle{Congruence Rules}
+\framesubtitle{Congruence Rules (suppressed henceforth)}
 
 $$
 \inferrule{
@@ -226,6 +318,13 @@ $$
   {\eqtype{B}{B'} \hyp{A}}
 }
 {\eqtype{\Fun{A}{B}}{\Fun{A'}{B'}}}
+\qquad
+\inferrule{
+  {\eqterm{A}{A'}{\Type}}
+  \\
+  {\eqterm{B}{B'}{\Type} \hyp{A}}
+}
+{\eqterm{\Fun{A}{B}}{\Fun{A'}{B'}}{\Type}}
 $$
 
 $$
@@ -256,10 +355,15 @@ $$
 \inferrule{
   {}
 }
-{\isterm{\unit}{\Unit}}
+{\isterm{\Unit}{\Type}}
 $$
 
 $$
+\inferrule{
+  {}
+}
+{\isterm{\unit}{\Unit}}
+\qquad
 \inferrule{
   {\isterm{u}{\Unit}}
 }
@@ -278,6 +382,13 @@ $$
 {\istype{\Bot}}
 \qquad
 \inferrule{
+  {}
+}
+{\isterm{\Bot}{\Type}}
+$$
+
+$$
+\inferrule{
   {\istype{A}}
   \\
   {\isterm{e}{\Bot}}
@@ -286,6 +397,16 @@ $$
 $$
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Intuitionistic Logic}
+
+%% define implication, conjunction, and disjunction as type synonyms
+%% also Curry-Howard table of other logical types
+%% negation
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Church-Encoded Datatypes}
@@ -302,6 +423,14 @@ $$
 
 \begin{frame}
 \frametitle{Metatheoretic Properties}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+
+1984 book, retypeset version,
+and github papers repo.
 
 \end{frame}
 
