@@ -42,6 +42,7 @@
 \newcommand{\Bool}[0]{\ensuremath{\mathbb{B}}}
 \newcommand{\true}[0]{\ensuremath{\txt{tt}}}
 \newcommand{\false}[0]{\ensuremath{\txt{ff}}}
+\newcommand{\elimBool}[3]{\ensuremath{\texttt{elim}_{\Bool}~#1~#2~#3}}
 
 \begin{document}
 \frame{\titlepage}
@@ -473,6 +474,60 @@ $$
   {\isterm{e}{\Bot}}
 }
 {\isterm{\elimBot{e}}{A}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Booleans ($\Bool$ type)}
+
+$$
+\inferrule{{}}
+{\istype{\Bool}}
+\qquad
+\inferrule{{}}
+{\isterm{\Bool}{\Type}}
+\qquad
+\inferrule{{}}
+{\isterm{\true}{\Bool}}
+\qquad
+\inferrule{{}}
+{\isterm{\false}{\Bool}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Bool}}
+  \\
+  {\isterm{p_t}{\sub{P}{\true}}}
+  \\  
+  {\isterm{p_f}{\sub{P}{\false}}}
+  \\
+  {\isterm{b}{\Bool}}
+}
+{\isterm{\elimBool{p_t}{p_f}{b}}{\sub{P}{b}}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Bool}}
+  \\
+  {\isterm{p_t}{\sub{P}{\true}}}
+  \\  
+  {\isterm{p_f}{\sub{P}{\false}}}
+}
+{\eqterm{\elimBool{p_t}{p_f}{\true}}{p_t}{\sub{P}{\true}}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Bool}}
+  \\
+  {\isterm{p_t}{\sub{P}{\true}}}
+  \\  
+  {\isterm{p_f}{\sub{P}{\false}}}
+}
+{\eqterm{\elimBool{p_t}{p_f}{\false}}{p_f}{\sub{P}{\false}}}
 $$
 
 \end{frame}
