@@ -63,7 +63,6 @@ suitable for both programming and theorem proving}.
 
 \end{frame}
 
-
 \begin{frame}
 \frametitle{Curry-Howard Isomorphism}
 \framesubtitle{System F}
@@ -79,11 +78,10 @@ suitable for both programming and theorem proving}.
 \begin{frame}
 \frametitle{Verified Programming}
 
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Large Eliminations}
+\begin{block}{Dependently Typed Programming Languages}
+Modern dependently typed programming languages, or proof assistants,
+implement variations of MLTT (e.g. Agda, Coq, Idris, Lean, etc.).
+\end{block}
 
 \end{frame}
 
@@ -480,15 +478,29 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Intuitionistic Logic}
+\frametitle{Large Eliminations}
 
-%% separate slides for pairs, disjoint unions, etc
-%% maybe show constructors for disjunction
-%% define implication, conjunction, and disjunction as type synonyms
-%% also Curry-Howard table of other logical types
-%% negation
+\begin{block}{Large Elimination}
+A function that computes a type from a term.
+\end{block}
+
+\begin{block}{Predicates}
+Can be represented as a function (i.e. a large elimination)
+from booleans (\Bool) to types. If the predicate is satisfied, the
+function returns \Unit (which is inhabited),
+otherwise it returns \Bot (which is uninhabited). Predicates can similarly
+be defined over other types
+(e.g. an \txt{IsSorted} predicate from lists to types).
+\end{block}
+
+\begin{block}{Families of Types}
+Also called \textit{indexed types}. These are the same as predicates,
+but contain additional data of computational value, beyond mere
+inhabitance (e.g. a vector of elements indexed by the natural numbers). 
+\end{block}
 
 \end{frame}
+
 
 
 \begin{frame}
@@ -503,6 +515,22 @@ $$
 
 \end{frame}
 
+\begin{frame}
+\frametitle{MLTT Open to Extension}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Intuitionistic Logic}
+
+%% separate slides for pairs, disjoint unions, etc
+%% maybe show constructors for disjunction
+%% define implication, conjunction, and disjunction as type synonyms
+%% also Curry-Howard table of other logical types
+%% negation
+
+\end{frame}
 
 \begin{frame}
 \frametitle{Metatheoretic Properties}
