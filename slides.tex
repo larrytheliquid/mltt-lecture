@@ -452,37 +452,6 @@ that allows inductive types (e.g. $\mathbb{N}$) to be \textit{derived}:
 \\\Bot, \Unit, $\Sigma$, \Bool, and $\mathcal{W}$.
 \end{block}
 
-
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Unit ($\Unit$ type)}
-
-$$
-\inferrule{
-  {}
-}
-{\istype{\Unit}}
-\qquad
-\inferrule{
-  {}
-}
-{\isterm{\Unit}{\Type}}
-$$
-
-$$
-\inferrule{
-  {}
-}
-{\isterm{\unit}{\Unit}}
-\qquad
-\inferrule{
-  {\isterm{u}{\Unit}}
-}
-{\eqterm{u}{\unit}{\Unit}}
-$$
-
 \end{frame}
 
 \begin{frame}
@@ -512,52 +481,30 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Dependent Pairs ($\Sigma$ types)}
+\frametitle{Unit ($\Unit$ type)}
 
 $$
 \inferrule{
-  {\istype{A}}
-  \\
-  {\istype{B} \hyp{A}}
+  {}
 }
-{\istype{\Pair{A}{B}}}
+{\istype{\Unit}}
 \qquad
 \inferrule{
-  {\isterm{A}{\Type}}
-  \\
-  {\isterm{B}{\Type} \hyp{A}}
+  {}
 }
-{\isterm{\Pair{A}{B}}{\Type}}
+{\isterm{\Unit}{\Type}}
 $$
 
 $$
 \inferrule{
-  {\istype{B} \hyp{A}}
-  \\
-  {\isterm{a}{A}}
-  \\
-  {\isterm{b}{\sub{B}{a}}}
+  {}
 }
-{\isterm{\pair{a}{b}}{\Pair{A}{B}}}
-$$
-
-$$
-\inferrule{
-  {\isterm{s}{\Pair{A}{B}}}
-}
-{\isterm{\fst{s}}{A}}
+{\isterm{\unit}{\Unit}}
 \qquad
 \inferrule{
-  {\isterm{s}{\Pair{A}{B}}}
+  {\isterm{u}{\Unit}}
 }
-{\isterm{\snd{s}}{\sub{B}{\fst{s}}}}
-$$
-
-$$
-\inferrule{
-  {\isterm{s}{\Pair{A}{B}}}
-}
-{\eqterm{s}{\pair{\fst{s}}{\snd{s}}}{\Pair{A}{B}}}
+{\eqterm{u}{\unit}{\Unit}}
 $$
 
 \end{frame}
@@ -612,6 +559,57 @@ $$
   {\isterm{p_f}{\sub{P}{\false}}}
 }
 {\eqterm{\elimBool{p_t}{p_f}{\false}}{p_f}{\sub{P}{\false}}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Dependent Pairs ($\Sigma$ types)}
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+}
+{\istype{\Pair{A}{B}}}
+\qquad
+\inferrule{
+  {\isterm{A}{\Type}}
+  \\
+  {\isterm{B}{\Type} \hyp{A}}
+}
+{\isterm{\Pair{A}{B}}{\Type}}
+$$
+
+$$
+\inferrule{
+  {\istype{B} \hyp{A}}
+  \\
+  {\isterm{a}{A}}
+  \\
+  {\isterm{b}{\sub{B}{a}}}
+}
+{\isterm{\pair{a}{b}}{\Pair{A}{B}}}
+$$
+
+$$
+\inferrule{
+  {\isterm{s}{\Pair{A}{B}}}
+}
+{\isterm{\fst{s}}{A}}
+\qquad
+\inferrule{
+  {\isterm{s}{\Pair{A}{B}}}
+}
+{\isterm{\snd{s}}{\sub{B}{\fst{s}}}}
+$$
+
+$$
+\inferrule{
+  {\isterm{s}{\Pair{A}{B}}}
+}
+{\eqterm{s}{\pair{\fst{s}}{\snd{s}}}{\Pair{A}{B}}}
 $$
 
 \end{frame}
