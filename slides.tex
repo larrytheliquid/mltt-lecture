@@ -34,7 +34,7 @@
 
 \newcommand{\Pairv}[3]{\ensuremath{\Sigma #1{:}#2. #3}}
 \newcommand{\Pair}[2]{\Pairv{x}{#1}{#2}}
-\newcommand{\pair}[2]{\ensuremath{\(#1, #2\)}}
+\newcommand{\pair}[2]{(#1, #2)}
 \newcommand{\fst}[1]{\ensuremath{\pi_1~#1}}
 \newcommand{\snd}[1]{\ensuremath{\pi_2~#1}}
 
@@ -288,7 +288,7 @@ $$
 
 \begin{frame}
 \frametitle{Predicative Universe}
-\framesubtitle{e.g. the identity function type}
+\framesubtitle{e.g. the type of the identity function}
 
 $$
 \istype{\Funv{A}{\Type}{\Arr{A}{A}}}
@@ -437,7 +437,7 @@ Can consider $\Pi$ and \Type~ the ``core'' types of MLTT.
 \end{block}
 
 \begin{block}{Open to Extension}
-Per Martin-L{\"o}f preferred his theory to be ``open to extension'',
+Per Martin-L{\"o}f prefers his theory to be ``open to extension'',
 in the sense that adding new types
 (like lists, vectors, an internalized equality type, etc.) should
 remain possible.\footnote{
@@ -486,36 +486,6 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Dependent Pairs ($\Sigma$ types)}
-
-$$
-\inferrule{
-  {\istype{A}}
-  \\
-  {\istype{B} \hyp{A}}
-}
-{\istype{\Pair{A}{B}}}
-\qquad
-\inferrule{
-  {\isterm{A}{\Type}}
-  \\
-  {\isterm{B}{\Type} \hyp{A}}
-}
-{\isterm{\Pair{A}{B}}{\Type}}
-$$
-
-$$
-\inferrule{
-  {\istype{A}}
-  \\
-  {\istype{B} \hyp{A}}
-}
-{\istype{\Pair{A}{B}}}
-$$
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Bottom ($\Bot$ type)}
 
 $$
@@ -537,6 +507,57 @@ $$
   {\isterm{e}{\Bot}}
 }
 {\isterm{\elimBot{e}}{A}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Dependent Pairs ($\Sigma$ types)}
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+}
+{\istype{\Pair{A}{B}}}
+\qquad
+\inferrule{
+  {\isterm{A}{\Type}}
+  \\
+  {\isterm{B}{\Type} \hyp{A}}
+}
+{\isterm{\Pair{A}{B}}{\Type}}
+$$
+
+$$
+\inferrule{
+  {\istype{B} \hyp{A}}
+  \\
+  {\isterm{a}{A}}
+  \\
+  {\isterm{b}{\sub{B}{a}}}
+}
+{\isterm{\pair{a}{b}}{\Pair{A}{B}}}
+$$
+
+$$
+\inferrule{
+  {\isterm{s}{\Pair{A}{B}}}
+}
+{\isterm{\fst{s}}{A}}
+\qquad
+\inferrule{
+  {\isterm{s}{\Pair{A}{B}}}
+}
+{\isterm{\snd{s}}{\sub{B}{\fst{s}}}}
+$$
+
+$$
+\inferrule{
+  {\isterm{s}{\Pair{A}{B}}}
+}
+{\eqterm{s}{\pair{\fst{s}}{\snd{s}}}{\Pair{A}{B}}}
 $$
 
 \end{frame}
