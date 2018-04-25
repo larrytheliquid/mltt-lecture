@@ -64,6 +64,10 @@
 \newcommand{\suc}[1]{\ensuremath{\app{\suck}{#1}}}
 \newcommand{\elimNat}[4]{\ensuremath{\texttt{elim}_{\Nat}~#1~#2~#3~#4}}
 
+\newcommand{\Wellk}[0]{\ensuremath{\mathcal{W}}}
+\newcommand{\Wellv}[3]{\ensuremath{\Wellk #1{:}#2. #3}}
+\newcommand{\Well}[2]{\Wellv{x}{#1}{#2}}
+
 \begin{document}
 \frame{\titlepage}
 
@@ -463,7 +467,7 @@ like excluded middle, but at the cost of ``stuck'' computations.
 \begin{block}{Minimal Theory for Inductive Types}
 Next, we will extend MLTT with a minimal collection of types
 that allows inductive types (e.g. $\mathbb{N}$) to be \textit{derived}:
-\\\Bot, \Unit, $\Sigma$, \Bool, and $\mathcal{W}$.
+\\\Bot, \Unit, $\Sigma$, \Bool, and $\Wellk$.
 \end{block}
 
 \end{frame}
@@ -699,6 +703,28 @@ $$
 \begin{frame}
 \frametitle{W-Encoded Datatypes}
 \framesubtitle{MLTT}
+
+\begin{block}{\Wellk~Types (\Well{A}{B})}
+\Wellk~ is the type of well-orderings,
+or well-founded trees.
+The $A$ parameter represents the constructors and their
+non-inductive arguments. The dependent $B$ parameter represents
+the inductive arguments for each constructor
+specified by $A$.
+\end{block}
+
+\begin{block}{Inductive Types}
+Inductive types (e.g. \Nat) can be encoded by \Wellk, and
+their constructors and elimination rule (or, induction principle)
+can be derived from that of \Wellk and the types used for
+$A$ and $B$.
+\end{block}
+
+\begin{block}{Infinitary Types}
+\Wellk~ is the canonical example of an \textit{infinitary type},
+or a tree with possibly infinite branches. Instantiating $A$
+with \Nat~ results in an infinitely branching tree.
+\end{block}
 
 \end{frame}
 
