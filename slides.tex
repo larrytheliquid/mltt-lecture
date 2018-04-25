@@ -68,6 +68,8 @@
 \newcommand{\Wellk}[0]{\ensuremath{\mathcal{W}}}
 \newcommand{\Wellv}[3]{\ensuremath{\Wellk #1{:}#2. #3}}
 \newcommand{\Well}[2]{\Wellv{x}{#1}{#2}}
+\newcommand{\suprk}[0]{\ensuremath{\txt{sup}}}
+\newcommand{\supr}[2]{\suprk~#1~#2}
 
 \begin{document}
 \frame{\titlepage}
@@ -696,9 +698,7 @@ $$
 \inferrule{{}}
 {\eqtype{\True{\false}}{\Bot}}
 $$
-
-\hrulefill
-
+\dotfill
 $$
 \Truek \defeq \funv{b}{\elimBool{\Unit}{\Bot}{b}}
 \qquad
@@ -811,7 +811,70 @@ $$
 \end{frame}
 
 \begin{frame}
+\frametitle{Natural Numbers ($\Nat$ type)}
+
+$$
+\inferrule{{}}
+{\isterm{\Nat}{\Type}}
+\qquad
+\inferrule{{}}
+{\isterm{\zero}{\Nat}}
+\qquad
+\inferrule{
+  {\isterm{n}{\Nat}}
+}
+{\isterm{\suc{n}}{\Nat}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Nat}}
+  \\\\
+  {\isterm{p_z}{\sub{P}{\zero}}}
+  \\  
+  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}
+  \\
+  {\isterm{n}{\Nat}}
+}
+{\isterm{\elimNat{p_z}{p_s}{n}}{\sub{P}{n}}}
+$$
+
+\dotfill
+\begin{align*}
+\Nat &\defeq \Wellv{b}{\Bool}{\True{b}} \\
+\zero &\defeq \supr{\false}{(\funv{e}{\elimBot{e}})}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Metatheoretic Properties}
+
+\begin{block}{Type Preservation}
+  If \istype{A} and \eqtype{A}{A'}, then \istype{A'}.
+  If \isterm{a}{A} and \eqterm{a}{a'}{A}, then \isterm{a'}{A}.
+\end{block}
+
+\begin{block}{Consistency}
+There is no closed term $e$ s.t. \isterm{e}{\Bot}.
+\end{block}
+
+\begin{block}{Normalization}
+  If \isterm{a}{A}, then there exists a normal
+  $a'$ s.t. \eqterm{a}{a'}{A}.
+
+  If \istype{A}, then there exists a normal
+  $A'$ s.t. \eqtype{A}{A'}.
+\end{block}
+
+\begin{block}{Decidable Type Checking}
+  For all $A$, \istype{A} or its negation.
+  For all $a$ and $A$, \isterm{a}{A} or its negation.
+  \footnote{
+    Assuming intentional equality
+    and suitable type annotations on terms.
+  }
+\end{block}
 
 \end{frame}
 
