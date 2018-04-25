@@ -25,6 +25,11 @@
 
 \newcommand{\Arr}[2]{\ensuremath{#1 \rightarrow #2}}
 
+\newcommand{\Allv}[2]{\ensuremath{\forall #1. #2}}
+\newcommand{\All}[1]{\Allv{X}{#1}}
+\newcommand{\allv}[2]{\ensuremath{\Lambda #1. #2}}
+\newcommand{\all}[1]{\allv{X}{#1}}
+
 \newcommand{\Funv}[3]{\ensuremath{\Pi #1{:}#2. #3}}
 \newcommand{\Fun}[2]{\Funv{x}{#1}{#2}}
 \newcommand{\funv}[2]{\ensuremath{\lambda #1. #2}}
@@ -52,6 +57,12 @@
 \newcommand{\true}[0]{\ensuremath{\txt{tt}}}
 \newcommand{\false}[0]{\ensuremath{\txt{ff}}}
 \newcommand{\elimBool}[3]{\ensuremath{\texttt{elim}_{\Bool}~#1~#2~#3}}
+
+\newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
+\newcommand{\zero}[0]{\ensuremath{\txt{zero}}}
+\newcommand{\suck}[0]{\ensuremath{\txt{suc}}}
+\newcommand{\suc}[1]{\ensuremath{\app{\suck}{#1}}}
+\newcommand{\elimNat}[4]{\ensuremath{\texttt{elim}_{\Nat}~#1~#2~#3~#4}}
 
 \begin{document}
 \frame{\titlepage}
@@ -668,6 +679,20 @@ $$
 \begin{frame}
 \frametitle{Church-Encoded Datatypes}
 \framesubtitle{System F}
+
+\begin{align*}
+\Nat &\defeq \All{\Arr{X}{\Arr{(\Arr{X}{X})}{X}}} \\
+\zero &\defeq \all{\funv{c_z}{\funv{c_s}{c_z}}} \\
+\suck &\defeq \funv{n}{\all{\funv{c_z}{\funv{c_s}{\app{c_s}{n}}}}}
+\end{align*}
+
+$$
+\isterm{\Nat}{\star}
+\qquad
+\isterm{\zero}{\Nat}
+\qquad
+\isterm{\suck}{\Arr{\Nat}{\Nat}}
+$$
 
 \end{frame}
 
