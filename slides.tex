@@ -11,6 +11,10 @@
 
 \newcommand{\bad}[1]{\textcolor{red}{\cancel{#1}}}
 
+\newcommand{\txt}[1]{\textrm{#1}}
+\newcommand{\defeq}[0]{\ensuremath{\triangleq}}
+%% \newcommand{\defeq}[2]{\ensuremath{#1 ~\triangleq~ #2}}
+
 \newcommand{\istype}[1]{\ensuremath{#1 ~\textbf{\textrm{type}}}}
 \newcommand{\isterm}[2]{\ensuremath{#1 ~\textbf{{:}}~ #2}}
 
@@ -31,13 +35,13 @@
 \newcommand{\Type}[0]{\ensuremath{\mathcal{U}}}
 
 \newcommand{\Unit}[0]{\ensuremath{\top}}
-\newcommand{\unit}[0]{\ensuremath{\textrm{tt}}}
+\newcommand{\unit}[0]{\ensuremath{\txt{tt}}}
 \newcommand{\Bot}[0]{\ensuremath{\bot}}
 \newcommand{\elimBot}[1]{\ensuremath{\texttt{elim}_{\Bot}~#1}}
 
 \newcommand{\Bool}[0]{\ensuremath{\mathbb{B}}}
-\newcommand{\true}[0]{\ensuremath{\textrm{tt}}}
-\newcommand{\false}[0]{\ensuremath{\textrm{ff}}}
+\newcommand{\true}[0]{\ensuremath{\txt{tt}}}
+\newcommand{\false}[0]{\ensuremath{\txt{ff}}}
 
 \begin{document}
 \frame{\titlepage}
@@ -151,7 +155,16 @@ $\Gamma, x{:}A \vdash \istype{B}$
 \begin{frame}
 \frametitle{Computation in Types}
 
-%% lam A. lam a. a : (A : U) -> A -> (lam X. X) A
+\begin{align*}
+\txt{Id} &\defeq \funv{A}{A} \\
+\txt{id} &\defeq \funv{A}{\funv{a}{a}}
+\end{align*}
+
+$$
+\isterm{\txt{Id}}{\Arr{\Type}{\Type}}
+\qquad
+\isterm{\txt{id}}{\Funv{A}{\Type}{\Arr{A}{\app{\txt{Id}}{A}}}}
+$$
 
 \end{frame}
 
