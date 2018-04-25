@@ -32,6 +32,12 @@
 \newcommand{\app}[2]{\ensuremath{#1~#2}}
 \newcommand{\sub}[2]{\ensuremath{#1[#2/x]}}
 
+\newcommand{\Pairv}[3]{\ensuremath{\Sigma #1{:}#2. #3}}
+\newcommand{\Pair}[2]{\Pairv{x}{#1}{#2}}
+\newcommand{\pair}[2]{\ensuremath{\(#1, #2\)}}
+\newcommand{\fst}[1]{\ensuremath{\pi_1~#1}}
+\newcommand{\snd}[1]{\ensuremath{\pi_2~#1}}
+
 \newcommand{\Type}[0]{\ensuremath{\mathcal{U}}}
 
 \newcommand{\Unit}[0]{\ensuremath{\top}}
@@ -424,6 +430,33 @@ $$
 \end{frame}
 
 \begin{frame}
+\frametitle{MLTT Open to Extension}
+
+\begin{block}{Core}
+Can consider $\Pi$ and \Type~ the ``core'' types of MLTT.
+\end{block}
+
+\begin{block}{Open to Extension}
+Per Martin-L{\"o}f preferred his theory to be ``open to extension'',
+in the sense that adding new types
+(like lists, vectors, an internalized equality type, etc.) should
+remain possible.\footnote{
+  This is why there is no elimination rule for \Type.
+} Even axioms (that keep the theory consistent) may be added,
+like excluded middle, but at the cost of ``stuck'' computations.
+\end{block}
+
+\begin{block}{Minimal Theory for Inductive Types}
+Next, we will extend MLTT with a minimal collection of types
+that allows inductive types (e.g. $\mathbb{N}$) to be \textit{derived}:
+\\\Bot, \Unit, $\Sigma$, \Bool, and $\mathcal{W}$.
+\end{block}
+
+
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Unit ($\Unit$ type)}
 
 $$
@@ -448,6 +481,36 @@ $$
   {\isterm{u}{\Unit}}
 }
 {\eqterm{u}{\unit}{\Unit}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Dependent Pairs ($\Sigma$ types)}
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+}
+{\istype{\Pair{A}{B}}}
+\qquad
+\inferrule{
+  {\isterm{A}{\Type}}
+  \\
+  {\isterm{B}{\Type} \hyp{A}}
+}
+{\isterm{\Pair{A}{B}}{\Type}}
+$$
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+}
+{\istype{\Pair{A}{B}}}
 $$
 
 \end{frame}
@@ -569,12 +632,6 @@ inhabitance (e.g. a vector of elements indexed by the natural numbers).
 \framesubtitle{MLTT}
 
 \end{frame}
-
-\begin{frame}
-\frametitle{MLTT Open to Extension}
-
-\end{frame}
-
 
 \begin{frame}
 \frametitle{Intuitionistic Logic}
