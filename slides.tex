@@ -153,26 +153,49 @@ $\Gamma, x{:}A \vdash \istype{B}$
 \end{frame}
 
 \begin{frame}
-\frametitle{Computation in Types}
-
-\begin{align*}
-\txt{Id} &\defeq \funv{A}{A} \\
-\txt{id} &\defeq \funv{A}{\funv{a}{a}}
-\end{align*}
+\frametitle{Equality is an Equivalence Relation}
 
 $$
-\isterm{\txt{Id}}{\Arr{\Type}{\Type}}
+\inferrule{
+  {\istype{A}}
+}
+{\eqtype{A}{A}}
 \qquad
-\isterm{\txt{id}}{\Funv{A}{\Type}{\Arr{A}{\app{\txt{Id}}{A}}}}
+\inferrule{
+  {\isterm{a}{A}}
+}
+{\eqterm{a}{a}{A}}
+$$
+
+$$
+\inferrule{
+  {\eqtype{A}{A'}}
+}
+{\eqtype{A'}{A}}
+\qquad
+\inferrule{
+  {\eqterm{a}{a'}{A}}
+}
+{\eqterm{a'}{a}{A}}
+$$
+
+$$
+\inferrule{
+  {\eqtype{A_1}{A_2}}
+  \\
+  {\eqtype{A_2}{A_3}}
+}
+{\eqtype{A_1}{A_3}}
+\qquad
+\inferrule{
+  {\eqterm{a_1}{a_2}{A}}
+  \\
+  {\eqterm{a_2}{a_3}{A}}
+}
+{\eqterm{a_1}{a_3}{A}}
 $$
 
 \end{frame}
-
-\begin{frame}
-\frametitle{Equality and Conversion Rules}
-
-\end{frame}
-
 
 \begin{frame}
 \frametitle{Package of Rules per Type}
@@ -354,6 +377,50 @@ $$
 }
 {\eqterm{\app{f}{a}}{\app{f'}{a'}}{\sub{B}{a}}}
 $$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Computation in Types}
+
+\begin{align*}
+\txt{Id} &\defeq \funv{A}{A} \\
+\txt{id} &\defeq \funv{A}{\funv{a}{a}}
+\end{align*}
+
+$$
+\isterm{\txt{Id}}{\Arr{\Type}{\Type}}
+\qquad
+\isterm{\txt{id}}{\Funv{A}{\Type}{\Arr{A}{\app{\txt{Id}}{A}}}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Conversion Rules}
+\framesubtitle{Equality of Types}
+
+$$
+\inferrule{
+  {\isterm{a}{A}}
+  \\
+  {\eqtype{A}{A'}}
+}
+{\isterm{a}{A'}}
+\qquad
+\inferrule{
+  {\eqterm{a}{a'}{A}}
+  \\
+  {\eqtype{A}{A'}}
+}
+{\eqterm{a}{a'}{A'}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Computation in Types}
+\framesubtitle{Example derivation}
 
 \end{frame}
 
