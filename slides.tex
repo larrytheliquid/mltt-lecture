@@ -21,7 +21,8 @@
 \newcommand{\eqtype}[2]{\ensuremath{#1 ~\textbf{=}~ #2}}
 \newcommand{\eqterm}[3]{\ensuremath{#1 ~\textbf{=}~ #2 ~\textbf{{:}}~ #3}}
 
-\newcommand{\hyp}[1]{\ensuremath{~[\isterm{x}{#1}]}}
+\newcommand{\hyps}[1]{\ensuremath{~[#1]}}
+\newcommand{\hyp}[1]{\hyps{\isterm{x}{#1}}}
 
 \newcommand{\Arr}[2]{\ensuremath{#1 \rightarrow #2}}
 
@@ -62,7 +63,7 @@
 \newcommand{\zero}[0]{\ensuremath{\txt{zero}}}
 \newcommand{\suck}[0]{\ensuremath{\txt{suc}}}
 \newcommand{\suc}[1]{\ensuremath{\app{\suck}{#1}}}
-\newcommand{\elimNat}[4]{\ensuremath{\texttt{elim}_{\Nat}~#1~#2~#3~#4}}
+\newcommand{\elimNat}[3]{\ensuremath{\texttt{elim}_{\Nat}~#1~#2~#3}}
 
 \newcommand{\Wellk}[0]{\ensuremath{\mathcal{W}}}
 \newcommand{\Wellv}[3]{\ensuremath{\Wellk #1{:}#2. #3}}
@@ -92,7 +93,16 @@ suitable for both programming and theorem proving}.
 \frametitle{Curry-Howard Isomorphism}
 \framesubtitle{System F}
 
-%% imp, unit, bot, forall P:Prop
+%% imp, unit, bot, forall P:Prop (FO Prop)
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Curry-Howard Isomorphism}
+\framesubtitle{System F$_\omega$}
+
+%% adds conj, disj, neg
+%% quant over HO propositions
 
 \end{frame}
 
@@ -529,6 +539,15 @@ $$
 {\isterm{\elimUnit{p}{u}}{\sub{P}{u}}}}
 $$
 
+$$
+\bad{\inferrule{
+  {\istype{P} \hyp{Unit}}
+  \\
+  {\isterm{p}{\sub{P}{\unit}}}
+}
+{\eqterm{\elimUnit{p}{\unit}}{p}{\sub{P}{\unit}}}}
+$$
+
 \end{frame}
 
 \begin{frame}
@@ -733,6 +752,61 @@ $A$ and $B$.
 or a tree with possibly infinite branches. Instantiating $A$
 with \Nat~ results in an infinitely branching tree.
 \end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Natural Numbers ($\Nat$ type)}
+
+$$
+\inferrule{{}}
+{\isterm{\Nat}{\Type}}
+\qquad
+\inferrule{{}}
+{\isterm{\zero}{\Nat}}
+\qquad
+\inferrule{
+  {\isterm{n}{\Nat}}
+}
+{\isterm{\suc{n}}{\Nat}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Nat}}
+  \\\\
+  {\isterm{p_z}{\sub{P}{\zero}}}
+  \\  
+  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}
+  \\
+  {\isterm{n}{\Nat}}
+}
+{\isterm{\elimNat{p_z}{p_s}{n}}{\sub{P}{n}}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Nat}}
+  \\\\
+  {\isterm{p_z}{\sub{P}{\zero}}}
+  \\  
+  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}
+}
+{\eqterm{\elimNat{p_z}{p_s}{\zero}}{p_z}{\sub{P}{\zero}}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Nat}}
+  \\\\
+  {\isterm{p_z}{\sub{P}{\zero}}}
+  \\  
+  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}
+  \\
+  {\isterm{n}{\Nat}}
+}
+{\eqterm{\elimNat{p_z}{p_s}{(\suc{n})}}{p_s~n~(\elimNat{p_z}{p_s}{n})}{\sub{P}{\suc{n}}}}
+$$
 
 \end{frame}
 
