@@ -42,6 +42,7 @@
 
 \newcommand{\Unit}[0]{\ensuremath{\top}}
 \newcommand{\unit}[0]{\ensuremath{\txt{tt}}}
+\newcommand{\elimUnit}[2]{\ensuremath{\texttt{elim}_{\Unit}~#1~#2}}
 \newcommand{\Bot}[0]{\ensuremath{\bot}}
 \newcommand{\elimBot}[1]{\ensuremath{\texttt{elim}_{\Bot}~#1}}
 
@@ -506,6 +507,22 @@ $$
 }
 {\eqterm{u}{\unit}{\Unit}}
 $$
+
+$$
+\bad{\inferrule{
+  {\istype{P} \hyp{Unit}}
+  \\
+  {\isterm{p}{\sub{P}{\unit}}}
+  \\
+  {\isterm{u}{\Unit}}
+}
+{\isterm{\elimUnit{p}{u}}{\sub{P}{u}}}}
+$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercise: Derive $\txt{elim}_\Unit$}
 
 \end{frame}
 
