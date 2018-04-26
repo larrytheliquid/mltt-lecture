@@ -2,6 +2,7 @@
 \usetheme{Warsaw}
 \usepackage{mathpartir}
 \usepackage{cancel}
+\usepackage{url}
 
 \title{Martin-L{\"o}f's Type Theory (MLTT)}
 \author{Larry Diehl}
@@ -70,7 +71,9 @@
 \newcommand{\zero}[0]{\ensuremath{\txt{zero}}}
 \newcommand{\suck}[0]{\ensuremath{\txt{suc}}}
 \newcommand{\suc}[1]{\ensuremath{\app{\suck}{#1}}}
-\newcommand{\elimNat}[3]{\ensuremath{\texttt{elim}_{\Nat}~#1~#2~#3}}
+\newcommand{\elimNatk}[0]{\ensuremath{\txt{elim}_\Nat}}
+\newcommand{\elimNat}[3]{\ensuremath{\elimNatk~#1~#2~#3}}
+\newcommand{\foldNatk}[0]{\ensuremath{\txt{fold}_\Nat}}
 
 \newcommand{\Wellk}[0]{\ensuremath{\mathcal{W}}}
 \newcommand{\Wellv}[3]{\ensuremath{\Wellk #1{:}#2. #3}}
@@ -753,6 +756,7 @@ $$
 \Nat &\defeq \All{\Arr{X}{\Arr{(\Arr{X}{X})}{X}}} \\
 \zero &\defeq \all{\funv{c_z}{\funv{c_s}{c_z}}} \\
 \suck &\defeq \funv{n}{\all{\funv{c_z}{\funv{c_s}{\app{c_s}{n}}}}}
+%% \foldNatk &\defeq hm
 \end{align*}
 
 $$
@@ -762,6 +766,10 @@ $$
 \qquad
 \isterm{\suck}{\Arr{\Nat}{\Nat}}
 $$
+
+%% $$
+%% \isterm{\foldNatk}{\All{\Arr{X}{\Arr{(\Arr{X}{X})}{\Arr{\Nat}{X}}}}}
+%% $$
 
 \end{frame}
 
@@ -953,8 +961,15 @@ $$
 \begin{frame}
 \frametitle{References}
 
-1984 book, retypeset version,
-and github papers repo.
+\begin{block}{Book}
+\textit{Intuitionistic type theory (1984)}, by
+Per Martin-L{\"o}f and Giovanni Sambin.
+\end{block}
+
+\begin{block}{Repository of works by Per Martin-L{\"o}f}
+\url{https://github.com/michaelt/martin-lof}\\
+Includes a searchable and re-typeset version of the book.
+\end{block}
 
 \end{frame}
 
