@@ -997,6 +997,24 @@ $$
 \end{frame}
 
 \begin{frame}
+\frametitle{Natural Numbers ($\Nat$ type)}
+
+\begin{block}{Caveat}
+Deriving typing of \elimNatk~function requires \textit{function extensionality}.
+\end{block}
+
+\begin{block}{Extensional Equality of Functions}
+$$
+\inferrule{
+  {\eqterm{f~x}{f'~x}{B} \hyp{A}}
+}
+{\eqterm{f}{f'}{\Fun{A}{B}}}
+$$
+\end{block}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Exercises}
 
 \begin{block}{Lists}
