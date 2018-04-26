@@ -1,4 +1,4 @@
-\documentclass[mathserif]{beamer}
+\documentclass[mathserif,usenames,dvipsnames]{beamer}
 \usetheme{Warsaw}
 \usepackage{mathpartir}
 \usepackage{cancel}
@@ -9,6 +9,7 @@
 \date[April 26, 2018]
 {CS:5860 Lambda Calculus and Applications}
 
+\newcommand{\good}[1]{\textcolor{ForestGreen}{#1}}
 \newcommand{\bad}[1]{\textcolor{red}{\cancel{#1}}}
 
 \newcommand{\txt}[1]{\textrm{#1}}
@@ -59,6 +60,11 @@
 \newcommand{\false}[0]{\ensuremath{\txt{ff}}}
 \newcommand{\elimBool}[3]{\ensuremath{\texttt{elim}_{\Bool}~#1~#2~#3}}
 
+\newcommand{\Listk}[0]{\ensuremath{\txt{List}}}
+\newcommand{\List}[1]{\app{\Listk}{#1}}
+\newcommand{\Vectk}[0]{\ensuremath{\txt{Vec}}}
+\newcommand{\Vect}[2]{\Veck~#1~#2}
+
 \newcommand{\Nat}[0]{\ensuremath{\mathbb{N}}}
 \newcommand{\zero}[0]{\ensuremath{\txt{zero}}}
 \newcommand{\suck}[0]{\ensuremath{\txt{suc}}}
@@ -70,6 +76,7 @@
 \newcommand{\Well}[2]{\Wellv{x}{#1}{#2}}
 \newcommand{\suprk}[0]{\ensuremath{\txt{sup}}}
 \newcommand{\supr}[2]{\suprk~#1~#2}
+\newcommand{\elimWell}[2]{\ensuremath{\texttt{elim}_{\Wellk}~#1~#2}}
 
 \begin{document}
 \frame{\titlepage}
@@ -164,7 +171,6 @@ Static and dynamic semantics are mutually defined judgements.
 \eqterm{a}{a'}{A}
 \end{block}
 
-
 \end{frame}
 
 \begin{frame}
@@ -191,6 +197,37 @@ $\Gamma, x{:}A \vdash \istype{B}$
 
 \begin{block}{Implicit (meta-level) context}
 \istype{B} \hyp{A}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Metatheoretic Properties}
+
+\begin{block}{Type Preservation}
+  If \istype{A} and \eqtype{A}{A'}, then \istype{A'}.
+  If \isterm{a}{A} and \eqterm{a}{a'}{A}, then \isterm{a'}{A}.
+\end{block}
+
+\begin{block}{Consistency}
+There is no closed term $e$ s.t. \isterm{e}{\Bot}.
+\end{block}
+
+\begin{block}{Normalization}
+  If \isterm{a}{A}, then there exists a normal
+  $a'$ s.t. \eqterm{a}{a'}{A}.
+
+  If \istype{A}, then there exists a normal
+  $A'$ s.t. \eqtype{A}{A'}.
+\end{block}
+
+\begin{block}{Decidable Type Checking}
+  For all $A$, \istype{A} or its negation.
+  For all $a$ and $A$, \isterm{a}{A} or its negation.
+  \footnote{
+    Assuming intentional equality
+    and suitable type annotations on terms.
+  }
 \end{block}
 
 \end{frame}
@@ -728,34 +765,6 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{W-Encoded Datatypes}
-\framesubtitle{MLTT}
-
-\begin{block}{\Wellk~Types (\Well{A}{B})}
-\Wellk~ is the type of well-orderings,
-or well-founded trees.
-The $A$ parameter represents the constructors and their
-non-inductive arguments. The dependent $B$ parameter represents
-the inductive arguments for each constructor
-specified by $A$.
-\end{block}
-
-\begin{block}{Inductive Types}
-Inductive types (e.g. \Nat) can be encoded by \Wellk, and
-their constructors and eliminator (or, induction principle)
-can be derived from that of \Wellk~ and the types used for
-$A$ and $B$.
-\end{block}
-
-\begin{block}{Infinitary Types}
-\Wellk~ is the canonical example of an \textit{infinitary type},
-or a tree with possibly infinite branches. Instantiating $A$
-with \Nat~ results in an infinitely branching tree.
-\end{block}
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Natural Numbers ($\Nat$ type)}
 
 $$
@@ -777,7 +786,7 @@ $$
   \\\\
   {\isterm{p_z}{\sub{P}{\zero}}}
   \\  
-  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}
+  {\isterm{p_s}{\sub{P}{\suc{n}}} \good{\hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}}
   \\
   {\isterm{n}{\Nat}}
 }
@@ -811,6 +820,83 @@ $$
 \end{frame}
 
 \begin{frame}
+\frametitle{W-Encoded Datatypes}
+\framesubtitle{MLTT}
+
+\begin{block}{\Wellk~Types (\Well{A}{B})}
+\Wellk~ is the type of well-orderings,
+or well-founded trees.
+The $A$ parameter represents the constructors and their
+non-inductive arguments. The dependent $B$ parameter represents
+the inductive arguments for each constructor
+specified by $A$.
+\end{block}
+
+\begin{block}{Inductive Types}
+Inductive types (e.g. \Nat) can be encoded by \Wellk, and
+their constructors and eliminator (or, induction principle)
+can be derived from that of \Wellk~ and the types used for
+$A$ and $B$.
+\end{block}
+
+\begin{block}{Infinitary Types}
+\Wellk~ is the canonical example of an \textit{infinitary type},
+or a tree with possibly infinite branches. Instantiating $A$
+with \Nat~ results in an infinitely branching tree.
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Well-Orderings ($\Wellk$ types)}
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+}
+{\istype{\Well{A}{B}}}
+\qquad
+\inferrule{
+  {\isterm{A}{\Type}}
+  \\
+  {\isterm{B}{\Type} \hyp{A}}
+}
+{\isterm{\Well{A}{B}}{\Type}}
+$$
+
+$$
+\inferrule{
+  {\istype{B} \hyp{A}}
+  \\
+  {\isterm{a}{A}}
+  \\
+  {\isterm{f_b}{\good{\Arr{\sub{B}{a}}{\Well{A}{B}}}}}
+}
+{\isterm{\supr{a}{f_b}}{\Well{A}{B}}}
+$$
+
+$$
+\inferrule{
+  {\istype{A}}
+  \\
+  {\istype{B} \hyp{A}}
+  \\
+  {\istype{P} \hyp{\Well{A}{B}}}
+  \\
+  {\istype{B} \hyp{A}}
+  \\
+  {\isterm{a}{A}}
+  \\
+  {\isterm{f_b}{\good{\Arr{\sub{B}{a}}{\Well{A}{B}}}}}
+}
+{\isterm{\elimWell{p}{w}}{\sub{P}{w}}}
+$$
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Natural Numbers ($\Nat$ type)}
 
 \begin{align*}
@@ -833,32 +919,25 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Metatheoretic Properties}
+\frametitle{Exercises}
 
-\begin{block}{Type Preservation}
-  If \istype{A} and \eqtype{A}{A'}, then \istype{A'}.
-  If \isterm{a}{A} and \eqterm{a}{a'}{A}, then \isterm{a'}{A}.
+\begin{block}{Lists}
+What term can be used to derive the type of lists?
+$$
+\Listk \defeq ~?
+\qquad
+\isterm{\Listk}{\Arr{\Type}{\Type}}
+$$
 \end{block}
 
-\begin{block}{Consistency}
-There is no closed term $e$ s.t. \isterm{e}{\Bot}.
-\end{block}
-
-\begin{block}{Normalization}
-  If \isterm{a}{A}, then there exists a normal
-  $a'$ s.t. \eqterm{a}{a'}{A}.
-
-  If \istype{A}, then there exists a normal
-  $A'$ s.t. \eqtype{A}{A'}.
-\end{block}
-
-\begin{block}{Decidable Type Checking}
-  For all $A$, \istype{A} or its negation.
-  For all $a$ and $A$, \isterm{a}{A} or its negation.
-  \footnote{
-    Assuming intentional equality
-    and suitable type annotations on terms.
-  }
+\begin{block}{Vectors}
+What term can be used to derive the type of
+vectors (i.e. lists of length $n$)?
+$$
+\Vectk \defeq ~?
+\qquad
+\isterm{\Vectk}{\Arr{\Type}{\Arr{\Nat}{\Type}}}
+$$
 \end{block}
 
 \end{frame}
