@@ -742,13 +742,31 @@ $$
   {\isterm{s}{\Pair{A}{B}}}
 }
 {\isterm{\snd{s}}{\sub{B}{\fst{s}}}}
-$$
-
-$$
+\qquad
 \inferrule{
   {\isterm{s}{\Pair{A}{B}}}
 }
 {\eqterm{s}{\pair{\fst{s}}{\snd{s}}}{\Pair{A}{B}}}
+$$
+
+$$
+\inferrule{
+  {\istype{B} \hyp{A}}
+  \\\\
+  {\isterm{a}{A}}
+  \\
+  {\isterm{b}{\sub{B}{a}}}
+}
+{\eqterm{\fst{\pair{a}{b}}}{a}{A}}
+\qquad
+\inferrule{
+  {\istype{B} \hyp{A}}
+  \\\\
+  {\isterm{a}{A}}
+  \\
+  {\isterm{b}{\sub{B}{a}}}
+}
+{\eqterm{\snd{\pair{a}{b}}}{b}{\sub{B}{a}}}
 $$
 
 \end{frame}
