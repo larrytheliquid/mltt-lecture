@@ -229,11 +229,11 @@ Static and dynamic semantics are mutually defined judgements.
 \isterm{a}{A}
 \end{block}
 
-\begin{block}{Type is equal to type}
+\begin{block}{Type equality}
 \eqtype{A}{B}
 \end{block}
 
-\begin{block}{Term is equal to term at type}
+\begin{block}{Term equality}
 \eqterm{a}{a'}{A}
 \end{block}
 
@@ -565,8 +565,14 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Computation in Types}
-\framesubtitle{Example derivation}
+\frametitle{Exercise: Derive the Following Typing Judgements}
+\framesubtitle{Computation in Types}
+
+$$
+\isterm{\funv{A}{A}}{\Arr{\Type}{\Type}}
+\qquad
+\isterm{\funv{A}{\funv{a}{a}}}{\Funv{A}{\Type}{\Arr{A}{\app{(\funv{X}{X})}{A}}}}
+$$
 
 \end{frame}
 
@@ -656,7 +662,19 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise: Derive $\txt{elim}_\Unit$}
+\frametitle{Exercise: Solve the Following Terms}
+\framesubtitle{Elimination rule for \Unit~is derivable}
+
+\begin{align*}
+\txt{ElimEq} &\defeq~? \\
+\good{\txt{elimEq}}~ &\good{\defeq~?} \\
+\end{align*}
+
+$$
+\isterm{\txt{ElimEq}}{?}
+\qquad
+\good{\isterm{\txt{elimEq}}{?}}
+$$
 
 \end{frame}
 
@@ -783,6 +801,23 @@ Also called \textit{indexed types}. These are the same as predicates,
 but contain additional data of computational value, beyond mere
 inhabitance (e.g. a vector of elements indexed by the natural numbers). 
 \end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercise: Solve the Following Terms}
+\framesubtitle{Elimination rule for \Unit~is derivable}
+
+\begin{align*}
+\good{\txt{ElimEq}}~ &\good{\defeq~?} \\
+\txt{elimEq}~ &\defeq~? \\
+\end{align*}
+
+$$
+\good{\isterm{\txt{ElimEq}}{?}}
+\qquad
+\isterm{\txt{elimEq}}{?}
+$$
 
 \end{frame}
 
@@ -1018,7 +1053,8 @@ $$
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercises}
+\frametitle{Exercise: Solve the Following Terms}
+\framesubtitle{Lists and vectors}
 
 \begin{block}{Lists}
 What term can be used to derive the type of lists?
