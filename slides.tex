@@ -133,17 +133,17 @@ suitable for both programming and theorem proving}.
  \hline
  Truth & \Defeq{\Unit}{\Allv{X\!:\!\star}{\Arr{X}{X}}} \\
  \hline
+ Negation & \Defeq{\lnot P}{\Arr{P}{\Bot}} \\
+ \hline
  Implication & \Defeq{P \Rightarrow Q}{\Arr{P}{Q}} \\ 
- \hline
- F.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}}{Q}}{\Allv{P\!:\!\star}{Q}} \\ 
- \hline
- H.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}^2}{Q}}{\Allv{P\!:\!\kappa}{Q}} \\
  \hline
  Conjuction & \Defeq{P \land Q}{\Allv{X\!:\!\star}{\Arr{(\Arr{P}{\Arr{Q}{X}})}{X}}} \\
  \hline
  Disjunction & \small{\Defeq{P \lor Q}{\Allv{X\!:\!\star}{\Arr{(\Arr{P}{X})}{\Arr{(\Arr{Q}{X})}{X}}}}} \\
  \hline
- Negation & \Defeq{\lnot P}{\Arr{P}{\Bot}} \\
+ F.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}}{Q}}{\Allv{P\!:\!\star}{Q}} \\ 
+ \hline
+ H.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}^2}{Q}}{\Allv{P\!:\!\kappa}{Q}} \\
  \hline
 \end{tabular}
 \end{center}
@@ -161,19 +161,19 @@ suitable for both programming and theorem proving}.
  \hline
  Truth & \Unit \\
  \hline
+ Negation & \Defeq{\lnot P}{\Arr{P}{\Bot}} \\
+ \hline
  Implication & \Defeq{P \Rightarrow Q}{\Defeq{\Arr{P}{Q}}{\Fun{P}{Q}}} \\ 
+ \hline
+ Conjuction & \Defeq{P \land Q}{\Defeq{P \times Q}{\Pair{P}{Q}}} \\
+ \hline
+ Disjunction & \small{\Defeq{P \lor Q}{\Defeq{P \uplus Q}{\Pair{\Bool}{\elimBool{P}{Q}{x}}}}} \\
  \hline
  F.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}}{Q}}{\Funv{P}{\Type}{Q}} \\ 
  \hline
  H.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}^2}{Q}}{\Funv{P}{A}{Q}} \\
  \hline
  Term Quantif. & \Defeq{\Allv{t\!:\!A}{Q}}{\Funv{t}{A}{Q}} \\
- \hline
- Conjuction & \Defeq{P \land Q}{\Defeq{P \times Q}{\Pair{P}{Q}}} \\
- \hline
- Disjunction & \small{\Defeq{P \lor Q}{\Defeq{P \uplus Q}{\Pair{\Bool}{\elimBool{P}{Q}{x}}}}} \\
- \hline
- Negation & \Defeq{\lnot P}{\Arr{P}{\Bot}} \\
  \hline
 \end{tabular}
 \end{center}
