@@ -15,7 +15,7 @@
 
 \newcommand{\txt}[1]{\textrm{#1}}
 \newcommand{\defeq}[0]{\ensuremath{\triangleq}}
-%% \newcommand{\defeq}[2]{\ensuremath{#1 ~\triangleq~ #2}}
+\newcommand{\Defeq}[2]{\ensuremath{#1 ~\defeq~ #2}}
 
 \newcommand{\istype}[1]{\ensuremath{#1 ~\textbf{\textrm{type}}}}
 \newcommand{\isterm}[2]{\ensuremath{#1 ~\textbf{{:}}~ #2}}
@@ -106,13 +106,47 @@ suitable for both programming and theorem proving}.
 \frametitle{Curry-Howard Isomorphism}
 \framesubtitle{System F}
 
-%% imp, unit, bot, forall P:Prop (FO Prop)
+\begin{center}
+\begin{tabular}{ |c||c| } 
+ \hline
+ Falsity & \Defeq{\Bot}{\All{X}} \\
+ \hline
+ Truth & \Defeq{\Unit}{\All{\Arr{X}{X}}} \\
+ \hline
+ Implication & \Defeq{P \Rightarrow Q}{\Arr{P}{Q}} \\ 
+ \hline
+ F.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}}{Q}}{\Allv{P}{Q}} \\ 
+ \hline
+\end{tabular}
+\end{center}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Curry-Howard Isomorphism}
 \framesubtitle{System F$_\omega$}
+
+\begin{center}
+\begin{tabular}{ |c||c| } 
+ \hline
+ Falsity & \Defeq{\Bot}{\Allv{X\!:\!\star}{X}} \\
+ \hline
+ Truth & \Defeq{\Unit}{\Allv{X\!:\!\star}{\Arr{X}{X}}} \\
+ \hline
+ Implication & \Defeq{P \Rightarrow Q}{\Arr{P}{Q}} \\ 
+ \hline
+ F.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}}{Q}}{\Allv{P\!:\!\star}{Q}} \\ 
+ \hline
+ H.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}^2}{Q}}{\Allv{P\!:\!\kappa}{Q}} \\
+ \hline
+ Conjuction & \Defeq{P \land Q}{\Allv{X\!:\!\star}{\Arr{(\Arr{P}{\Arr{Q}{X}})}{X}}} \\
+ \hline
+ Disjunction & \small{\Defeq{P \lor Q}{\Allv{X\!:\!\star}{\Arr{(\Arr{P}{X})}{\Arr{(\Arr{Q}{X})}{X}}}}} \\
+ \hline
+ Negation & \Defeq{\lnot P}{\Arr{P}{\Bot}} \\
+ \hline
+\end{tabular}
+\end{center}
 
 %% adds conj, disj, neg
 %% quant over HO propositions
