@@ -678,13 +678,24 @@ $$
 \frametitle{Exercise: Solve the Following Terms}
 \framesubtitle{Elimination rule for \Unit~is derivable}
 
-\begin{align*}
-\ElimUnitk &\defeq~? \\
-\good{\elimUnitk}~ &\good{\defeq~?} \\
-\end{align*}
-
 $$
+\inferrule{
+  {\istype{P} \hyp{Unit}}
+  \\
+  {\isterm{p}{\sub{P}{\unit}}}
+  \\
+  {\isterm{u}{\Unit}}
+}
+{\isterm{\elimUnit{p}{u}}{\sub{P}{u}}}
+$$
+\dotfill
+$$
+\ElimUnitk \defeq~?
+\qquad
 \isterm{\ElimUnitk}{?}
+$$
+$$
+\good{\elimUnitk}~ \good{\defeq~?}
 \qquad
 \good{\isterm{\elimUnitk}{?}}
 $$
@@ -821,15 +832,29 @@ inhabitance (e.g. a vector of elements indexed by the natural numbers).
 \frametitle{Exercise: Solve the Following Terms}
 \framesubtitle{Elimination rule for \Unit~is derivable}
 
-\begin{align*}
-\good{\ElimUnitk}~ &\good{\defeq~?} \\
-\elimUnitk~ &\defeq~? \\
-\end{align*}
-
+$$
+\bad{\inferrule{{}}
+{\isterm{\Type}{\Type}}}
+\qquad
+\inferrule{
+  {\istype{P} \hyp{Unit}}
+  \\
+  {\isterm{p}{\sub{P}{\unit}}}
+  \\
+  {\isterm{u}{\Unit}}
+}
+{\isterm{\elimUnit{p}{u}}{\sub{P}{u}}}
+$$
+\dotfill
 $$
 \good{\isterm{\ElimUnitk}{?}}
 \qquad
+\good{\ElimUnitk}~ \good{\defeq~?}
+$$
+$$
 \isterm{\elimUnitk}{?}
+\qquad
+\elimUnitk~ \defeq~?
 $$
 
 \end{frame}
@@ -926,8 +951,9 @@ $$
 $$
 \inferrule{
   {\istype{P} \hyp{\Nat}}
-  \\\\
+  \\
   {\isterm{p_z}{\sub{P}{\zero}}}
+  \\\\
   \\  
   {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{x'}{\Nat}, \isterm{p}{\sub{P}{x'}}}}
   \\
