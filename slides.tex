@@ -37,6 +37,7 @@
 \newcommand{\funv}[2]{\ensuremath{\lambda #1. #2}}
 \newcommand{\fun}[1]{\funv{x}{#1}}
 \newcommand{\app}[2]{\ensuremath{#1~#2}}
+\newcommand{\subs}[2]{\ensuremath{#1[#2]}}
 \newcommand{\sub}[2]{\ensuremath{#1[#2/x]}}
 
 \newcommand{\Pairv}[3]{\ensuremath{\Sigma #1{:}#2. #3}}
@@ -810,11 +811,11 @@ $$
   \\\\
   {\isterm{p_z}{\sub{P}{\zero}}}
   \\  
-  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{n}{\Nat}, \isterm{p}{\sub{P}{n}}}}
+  {\isterm{p_s}{\sub{P}{\suc{n}}} \hyps{\isterm{x'}{\Nat}, \isterm{p}{\sub{P}{x'}}}}
   \\
   {\isterm{n}{\Nat}}
 }
-{\eqterm{\elimNat{p_z}{p_s}{(\suc{n})}}{p_s~n~(\elimNat{p_z}{p_s}{n})}{\sub{P}{\suc{n}}}}
+{\eqterm{\elimNat{p_z}{p_s}{(\suc{n})}}{\good{\subs{p_s}{n/x', (\elimNat{p_z}{p_s}{n})/p}}}{\sub{P}{\suc{n}}}}
 $$
 
 \end{frame}
@@ -879,19 +880,26 @@ $$
 
 $$
 \inferrule{
-  {\istype{A}}
-  \\
-  {\istype{B} \hyp{A}}
-  \\
   {\istype{P} \hyp{\Well{A}{B}}}
   \\
-  {\istype{B} \hyp{A}}
+  {\tiny{\isterm{p}{\good{\Funv{a}{A}{\Funv{f_b}{(\Arr{\sub{B}{a}}{\Well{A}{B}})}{\Arr{(\Funv{b}{\sub{B}{a}}{\sub{P}{b}})}{\sub{P}{\supr{a}{f_b}}}}}}}}}
+  \\
+  {\isterm{w}{\Well{A}{B}}}
+}
+{\isterm{\elimWell{p}{w}}{\sub{P}{w}}}
+$$
+
+$$
+\inferrule{
+  {\istype{P} \hyp{\Well{A}{B}}}
+  \\
+  {\tiny{\isterm{p}{\Funv{a}{A}{\Funv{f_b}{(\Arr{\sub{B}{a}}{\Well{A}{B}})}{\Arr{(\Funv{b}{\sub{B}{a}}{\sub{P}{b}})}{\sub{P}{\supr{a}{f_b}}}}}}}}
   \\
   {\isterm{a}{A}}
   \\
-  {\isterm{f_b}{\good{\Arr{\sub{B}{a}}{\Well{A}{B}}}}}
+  {\isterm{f_b}{\Arr{\sub{B}{a}}{\Well{A}{B}}}}
 }
-{\isterm{\elimWell{p}{w}}{\sub{P}{w}}}
+{\eqterm{\elimWell{p}{(\supr{a}{f_b}})}{\good{p~a~f_b~(\funv{b}{\elimWell{p}{(f_b~b)}})}}{\sub{P}{w}}}
 $$
 
 \end{frame}
