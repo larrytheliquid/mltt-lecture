@@ -148,20 +148,35 @@ suitable for both programming and theorem proving}.
 \end{tabular}
 \end{center}
 
-%% adds conj, disj, neg
-%% quant over HO propositions
-
 \end{frame}
 
 \begin{frame}
 \frametitle{Curry-Howard Isomorphism}
 \framesubtitle{MLTT}
 
-%% pairs, disjoint unions, etc
-%% maybe show constructors for disjunction
-%% define implication, conjunction, and disjunction as type synonyms
-%% also Curry-Howard table of other logical types
-%% negation
+\begin{center}
+\begin{tabular}{ |c||c| } 
+ \hline
+ Falsity & \Bot \\
+ \hline
+ Truth & \Unit \\
+ \hline
+ Implication & \Defeq{P \Rightarrow Q}{\Defeq{\Arr{P}{Q}}{\Fun{P}{Q}}} \\ 
+ \hline
+ F.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}}{Q}}{\Funv{P}{\Type}{Q}} \\ 
+ \hline
+ H.O. Prop. Quantif. & \Defeq{\Allv{P\!:\!\txt{Prop}^2}{Q}}{\Funv{P}{A}{Q}} \\
+ \hline
+ Domain Quantif. & \Defeq{\Allv{t\!:\!A}{Q}}{\Funv{t}{A}{Q}} \\
+ \hline
+ Conjuction & \Defeq{P \land Q}{\Defeq{P \times Q}{\Pair{P}{Q}}} \\
+ \hline
+ Disjunction & \small{\Defeq{P \lor Q}{\Defeq{P \uplus Q}{\Pair{\Bool}{\elimBool{P}{Q}{x}}}}} \\
+ \hline
+ Negation & \Defeq{\lnot P}{\Arr{P}{\Bot}} \\
+ \hline
+\end{tabular}
+\end{center}
 
 \end{frame}
 
