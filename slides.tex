@@ -51,7 +51,9 @@
 
 \newcommand{\Unit}[0]{\ensuremath{\top}}
 \newcommand{\unit}[0]{\ensuremath{\txt{tt}}}
-\newcommand{\elimUnit}[2]{\ensuremath{\texttt{elim}_{\Unit}~#1~#2}}
+\newcommand{\ElimUnitk}[0]{\ensuremath{\texttt{Elim}_{\Unit}}}
+\newcommand{\elimUnitk}[0]{\ensuremath{\texttt{elim}_{\Unit}}}
+\newcommand{\elimUnit}[2]{\ensuremath{\elimUnitk~#1~#2}}
 \newcommand{\Bot}[0]{\ensuremath{\bot}}
 \newcommand{\elimBot}[1]{\ensuremath{\texttt{elim}_{\Bot}~#1}}
 
@@ -265,6 +267,12 @@ $\Gamma, x{:}A \vdash \istype{B}$
 \istype{B} \hyp{A}
 \end{block}
 
+\begin{block}{Variable rule}
+\vspace*{-\baselineskip}
+\inferrule{{}}
+{\isterm{x}{A} \hyp{A}}
+\end{block}
+
 \end{frame}
 
 \begin{frame}
@@ -416,6 +424,11 @@ $$
   {\isterm{A}{\Type}}
 }
 {\istype{A}}
+\qquad
+\inferrule{
+  {\eqterm{A}{A'}{\Type}}
+}
+{\eqtype{A}{A'}}
 $$
 
 $$
@@ -666,14 +679,14 @@ $$
 \framesubtitle{Elimination rule for \Unit~is derivable}
 
 \begin{align*}
-\txt{ElimEq} &\defeq~? \\
-\good{\txt{elimEq}}~ &\good{\defeq~?} \\
+\ElimUnitk &\defeq~? \\
+\good{\elimUnitk}~ &\good{\defeq~?} \\
 \end{align*}
 
 $$
-\isterm{\txt{ElimEq}}{?}
+\isterm{\ElimUnitk}{?}
 \qquad
-\good{\isterm{\txt{elimEq}}{?}}
+\good{\isterm{\elimUnitk}{?}}
 $$
 
 \end{frame}
@@ -809,14 +822,14 @@ inhabitance (e.g. a vector of elements indexed by the natural numbers).
 \framesubtitle{Elimination rule for \Unit~is derivable}
 
 \begin{align*}
-\good{\txt{ElimEq}}~ &\good{\defeq~?} \\
-\txt{elimEq}~ &\defeq~? \\
+\good{\ElimUnitk}~ &\good{\defeq~?} \\
+\elimUnitk~ &\defeq~? \\
 \end{align*}
 
 $$
-\good{\isterm{\txt{ElimEq}}{?}}
+\good{\isterm{\ElimUnitk}{?}}
 \qquad
-\isterm{\txt{elimEq}}{?}
+\isterm{\elimUnitk}{?}
 $$
 
 \end{frame}
