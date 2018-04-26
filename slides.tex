@@ -139,6 +139,19 @@ Modern dependently typed programming languages, or proof assistants,
 implement variations of MLTT (e.g. Agda, Coq, Idris, Lean, etc.).
 \end{block}
 
+\begin{block}{Example: Bound-Safe Lookup}
+\isterm{\txt{lookup}}{\Funv{A}{\Type}{~\Funv{n}{\Nat}{~\Funv{l}{\List{A}}{~\Arr{n < |l|}{A}}}}}
+\end{block}
+
+\begin{block}{Example: Provably Correct Sorting}
+$$
+\isterm{\txt{sort}}{\Funv{A}{\Type}{~\Arr{\List{A}}{\List{A}}}}
+$$
+$$
+\isterm{\txt{sorted}}{\Funv{A}{\Type}{~\Funv{l}{\List{A}}{~\txt{Ord}~A~(\txt{sort}~A~l) \times \txt{Perm}~A~l~(\txt{sort}~A~l)}}}
+$$
+\end{block}
+
 \end{frame}
 
 \begin{frame}
